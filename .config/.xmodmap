@@ -7,3 +7,8 @@ keycode 66 = Mode_switch ISO_Level3_Shift
 keycode 47 = semicolon colon oslash Oslash
 keycode 48 = apostrophe quotedbl ae AE
 keycode 34 = bracketleft braceleft aring Aring
+
+! Caps lock as esc
+clear lock
+keycode 66 = Escape
+
