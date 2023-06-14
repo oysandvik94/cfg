@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Exec=/home/tvbox/bin/modmap
+Hidden=false
+X-GNOME-Autostart-enabled=true
+Name=xmodmap
+Comment=xmodmap script
