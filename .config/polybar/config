@@ -12,6 +12,7 @@ monitor = ${env:MONITOR:}
 
 modules-left = xworkspaces
 modules-center = time
+modules-right = battery
 
 
 font-0 = JetBrainsMono Nerd Font;2
@@ -62,4 +63,9 @@ label-empty = %name%
 label-empty-foreground = ${colors.disabled}
 label-empty-padding = 1
 
-
+[module/battery]
+type = internal/battery
+full-at = 99
+low-at = 5
+battery = BAT0
+adapter = ADP1
