@@ -1,16 +1,17 @@
 [colors]
-background = #1a1e23
+background = #16161e00
 background-alt = #373B41
 foreground = #d2d4d3
-primary = #009999
-secondary = #009999
-alert = #A54242
 disabled = #707880
+primary = ${xrdb:color5:#222}
+secondary = ${xrdb:color2:#222}
+alert = ${xrdb:color3:#222}
+text = ${xrdb:color8:#222}
 
 [bar/mybar]
 monitor = ${env:MONITOR:}
-
-modules-left = xworkspaces
+background = ${colors.background}
+modules-left = i3
 modules-center = time
 modules-right = battery
 
@@ -36,32 +37,37 @@ time= " %A, %d %B at %H:%M  "
 
 label = "%time%"
 
-#[module/i3]
-#type = internal/i3
-#pin-workspaces = true
-#show-urgent = true
-#strip-wsnumbers = true
-#index-sort = true
-#enable-click = false
+[module/i3]
+type = internal/i3
+format = <label-state> <label-mode>
 
-[module/xworkspaces]
-type = internal/xworkspaces
+pin-workspaces = true
 
-label-active = %name%
-label-active-background = ${colors.background-alt}
-label-active-underline = ${colors.primary}
-label-active-padding = 1
+label-mode-padding = 2
+label-mode-foreground = ${colors.primary} 
+label-mode-background = ${colors.primary}
 
-label-occupied = %name%
-label-occupied-padding = 1
+label-focused = %name%
+label-focused-foreground = #ffffff
+label-focused-background = #282A2E
+label-focused-underline = ${colors.primary}
+label-focused-padding = 2
+
+label-unfocused = %name%
+label-unfocused-padding = 2
+
+label-visible = %name%
+label-visible-underline = #555555
+label-visible-padding = 2
 
 label-urgent = %name%
-label-urgent-background = ${colors.alert}
-label-urgent-padding = 1
+label-urgent-foreground = #000000
+label-urgent-background = #bd2c40
+label-urgent-padding = 2
 
-label-empty = %name%
-label-empty-foreground = ${colors.disabled}
-label-empty-padding = 1
+label-separator = |
+label-separator-padding = 1
+label-separator-foreground = ${colors.primary}
 
 [module/battery]
 type = internal/battery

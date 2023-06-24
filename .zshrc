@@ -16,6 +16,9 @@ export ZSH="$HOME/.oh-my-zsh"
 export XDG_CONFIG_HOME="$HOME/.config"
 export TERMINAL=kitty
 
+# Color theme
+(cat ~/.cache/wal/sequences &)
+
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
@@ -133,6 +136,21 @@ alias cdnet="cd /home/ysteinlangelandsandvik/dev/netreg/egersund-net-netreg2"
 alias cdaxos="cd /home/ysteinlangelandsandvik/dev/axos/axos"
 alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 alias fzfd='cd $(find . -type d -print | fzf)'
+
+axosDbMigration() {
+    axospath="/home/ysteinlangelandsandvik/dev/axos/axos/backend/api"
+    dotnet ef migrations add "$1" --project $axospath/Axos.Db --startup-project $axospath/Axos.WebApi --context AxosDbContext 
+}
+
+axosDbUpdate() {
+    axospath="/home/ysteinlangelandsandvik/dev/axos/axos/backend/api"
+    dotnet ef database update --project $axospath/Axos.Db --startup-project $axospath/Axos.WebApi --context AxosDbContext 
+}
+
+axosDbRevert() {
+    axospath="/home/ysteinlangelandsandvik/dev/axos/axos/backend/api"
+    dotnet ef migrations remove --project $axospath/Axos.Db --startup-project $axospath/Axos.WebApi --context AxosDbContext 
+}
 
 if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
         source /etc/profile.d/vte.sh
