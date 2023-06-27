@@ -14,8 +14,6 @@ return require('packer').startup(function(use)
     }
     use({ 'rose-pine/neovim', as = 'rose-pine' })
 
-    vim.cmd('colorscheme rose-pine')
-
     use('nvim-treesitter/nvim-treesitter', { run = ':TSUpdate' })
     use('nvim-treesitter/playground')
     use('nvim-lua/plenary.nvim')
@@ -60,7 +58,8 @@ return require('packer').startup(function(use)
             "aserowy/tmux.nvim",
             config = function() return require("tmux").setup() end
         }),
-
+        use { "catppuccin/nvim", as = "catppuccin" },
+        use ({ "tpope/vim-surround" }),
         use("github/copilot.vim"),
         use("almo7aya/openingh.nvim"),
         use { 'Issafalcon/lsp-overloads.nvim' },
