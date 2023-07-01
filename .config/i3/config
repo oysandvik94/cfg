@@ -27,24 +27,20 @@ bindsym Control+Mod1+l exec "i3lock -c 000000"
 
 bindsym $mod+Ctrl+f exec firefox
 
-bindsym $mod+Ctrl+s exec --no-startup-id maim --select | xclip -selection clipboard -t image/png
+bindsym $mod+Ctrl+s exec --no-startup-id maim -o --select | xclip -selection clipboard -t image/png
 
 # Set keyboard layout
 exec_always "setxkbmap -layout us"
 exec_always "xmodmap ~/.config/.xmodmap"
 exec_always --no-startup-id "$HOME/.config/polybar/launch.sh"
-exec_always nitrogen --restore
+# exec_always nitrogen --restore
 exec_always --no-startup-id "picom --experimental-backends -b #000000"
 exec "brightnessctl set 100%"
-exec "~/.i3/startw.sh"
 exec "wal -R"
 exec "~/.config/scripts/sshEnable.sh"
 
-# Fix laptop closed thing
-exec --no-startup-id "xrandr | grep 'DP-1-1 connected;' && xrandr --output eDP-1 --off"
-
 # Fix password stuff
-exec --no-startup-id /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 &
+# exec --no-startup-id /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 &
 
 # Styling from pywal
 set_from_resource $fg i3wm.color7 #f0f0f0

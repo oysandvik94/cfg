@@ -10,6 +10,8 @@ set -o vi
 
 # Fix ssh agent
 eval $(keychain --eval --agents ssh --quick --quiet)
+# Må kanskje kjøre
+eval `keychain --eval --agents ssh id_rsa id_ed25519` 
 
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
@@ -139,6 +141,8 @@ alias cdnet="cd /home/ysteinlangelandsandvik/dev/netreg/egersund-net-netreg2"
 alias cdaxos="cd /home/ysteinlangelandsandvik/dev/axos/axos"
 alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 alias fzfd='cd $(find . -type d -print | fzf)'
+alias tmux='TERM=xterm-256color tmux'
+
 
 axosDbMigration() {
     axospath="/home/ysteinlangelandsandvik/dev/axos/axos/backend/api"

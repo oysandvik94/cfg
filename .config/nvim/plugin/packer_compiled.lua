@@ -79,6 +79,11 @@ _G.packer_plugins = {
     path = "/home/ysteinlangelandsandvik/.local/share/nvim/site/pack/packer/start/LuaSnip",
     url = "https://github.com/L3MON4D3/LuaSnip"
   },
+  ["boilercreate.nvim"] = {
+    loaded = true,
+    path = "/home/ysteinlangelandsandvik/.local/share/nvim/site/pack/packer/start/boilercreate.nvim",
+    url = "https://github.com/oysandvik94/boilercreate.nvim"
+  },
   catppuccin = {
     loaded = true,
     path = "/home/ysteinlangelandsandvik/.local/share/nvim/site/pack/packer/start/catppuccin",
@@ -98,6 +103,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/ysteinlangelandsandvik/.local/share/nvim/site/pack/packer/start/copilot.vim",
     url = "https://github.com/github/copilot.vim"
+  },
+  ["csharpls-extended-lsp.nvim"] = {
+    loaded = true,
+    path = "/home/ysteinlangelandsandvik/.local/share/nvim/site/pack/packer/start/csharpls-extended-lsp.nvim",
+    url = "https://github.com/Decodetalkers/csharpls-extended-lsp.nvim"
   },
   ["friendly-snippets"] = {
     loaded = true,
@@ -146,7 +156,7 @@ _G.packer_plugins = {
     url = "https://github.com/hrsh7th/nvim-cmp"
   },
   ["nvim-dap"] = {
-    after = { "telescope-dap.nvim", "nvim-dap-ui" },
+    after = { "nvim-dap-ui", "telescope-dap.nvim" },
     loaded = false,
     needs_bufread = false,
     only_cond = false,
@@ -177,6 +187,17 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/ysteinlangelandsandvik/.local/share/nvim/site/pack/packer/start/nvim-treesitter-context",
     url = "https://github.com/nvim-treesitter/nvim-treesitter-context"
+  },
+  ["oil.nvim"] = {
+    config = { "\27LJ\2\0021\0\0\2\0\3\0\0066\0\0\0'\1\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\boil\frequire\0" },
+    loaded = true,
+    path = "/home/ysteinlangelandsandvik/.local/share/nvim/site/pack/packer/start/oil.nvim",
+    url = "https://github.com/stevearc/oil.nvim"
+  },
+  ["omnisharp-extended-lsp.nvim"] = {
+    loaded = true,
+    path = "/home/ysteinlangelandsandvik/.local/share/nvim/site/pack/packer/start/omnisharp-extended-lsp.nvim",
+    url = "https://github.com/Hoffs/omnisharp-extended-lsp.nvim"
   },
   ["openingh.nvim"] = {
     loaded = true,
@@ -284,14 +305,18 @@ if not vim.g.packer_custom_loader_enabled then
   vim.g.packer_custom_loader_enabled = true
 end
 
--- Config for: nvim-autopairs
-time([[Config for nvim-autopairs]], true)
-try_loadstring("\27LJ\2\2@\0\0\2\0\3\0\a6\0\0\0'\1\1\0B\0\2\0029\0\2\0004\1\0\0B\0\2\1K\0\1\0\nsetup\19nvim-autopairs\frequire\0", "config", "nvim-autopairs")
-time([[Config for nvim-autopairs]], false)
 -- Config for: tmux.nvim
 time([[Config for tmux.nvim]], true)
 try_loadstring("\27LJ\2\2.\0\0\2\0\3\0\0056\0\0\0'\1\1\0B\0\2\0029\0\2\0D\0\1\0\nsetup\ttmux\frequire\0", "config", "tmux.nvim")
 time([[Config for tmux.nvim]], false)
+-- Config for: nvim-autopairs
+time([[Config for nvim-autopairs]], true)
+try_loadstring("\27LJ\2\2@\0\0\2\0\3\0\a6\0\0\0'\1\1\0B\0\2\0029\0\2\0004\1\0\0B\0\2\1K\0\1\0\nsetup\19nvim-autopairs\frequire\0", "config", "nvim-autopairs")
+time([[Config for nvim-autopairs]], false)
+-- Config for: oil.nvim
+time([[Config for oil.nvim]], true)
+try_loadstring("\27LJ\2\0021\0\0\2\0\3\0\0066\0\0\0'\1\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\boil\frequire\0", "config", "oil.nvim")
+time([[Config for oil.nvim]], false)
 vim.cmd [[augroup packer_load_aucmds]]
 vim.cmd [[au!]]
   -- Event lazy-loads

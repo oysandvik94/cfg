@@ -28,7 +28,7 @@ return require('packer').startup(function(use)
         requires = {
             -- LSP Support
             { 'neovim/nvim-lspconfig' }, -- Required
-            {                  -- Optional
+            {                            -- Optional
                 'williamboman/mason.nvim',
                 run = function()
                     pcall(vim.cmd, 'MasonUpdate')
@@ -37,12 +37,13 @@ return require('packer').startup(function(use)
             { 'williamboman/mason-lspconfig.nvim' }, -- Optional
 
             -- Autocompletion
-            { 'hrsh7th/nvim-cmp' },                                         -- Required
-            { 'hrsh7th/cmp-nvim-lsp' },                                     -- Required
+            { 'hrsh7th/nvim-cmp' },                                                                    -- Required
+            { 'hrsh7th/cmp-nvim-lsp' },                                                                -- Required
             { 'L3MON4D3/LuaSnip',                 dependencies = { "rafamadriz/friendly-snippets" } }, -- Required
         },
 
         use("nvim-treesitter/nvim-treesitter-context"),
+        use("Hoffs/omnisharp-extended-lsp.nvim"),
 
         use { 'saadparwaiz1/cmp_luasnip' },
 
@@ -59,7 +60,7 @@ return require('packer').startup(function(use)
             config = function() return require("tmux").setup() end
         }),
         use { "catppuccin/nvim", as = "catppuccin" },
-        use ({ "tpope/vim-surround" }),
+        use({ "tpope/vim-surround" }),
         use("github/copilot.vim"),
         use("almo7aya/openingh.nvim"),
         use { 'Issafalcon/lsp-overloads.nvim' },
@@ -80,6 +81,13 @@ return require('packer').startup(function(use)
                 { "rcarriga/nvim-dap-ui" },
                 { "nvim-telescope/telescope-dap.nvim" },
             },
+        },
+
+        use("oysandvik94/boilercreate.nvim"),
+        use("Decodetalkers/csharpls-extended-lsp.nvim"),
+        use {
+            'stevearc/oil.nvim',
+            config = function() require('oil').setup() end
         }
     }
 end)
