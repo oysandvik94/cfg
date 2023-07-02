@@ -10,11 +10,7 @@ set -o vi
 
 # Fix ssh agent
 eval $(keychain --eval --agents ssh --quick --quiet)
-# Må kanskje kjøre
-eval `keychain --eval --agents ssh id_rsa id_ed25519` 
-
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
+eval `keychain --eval --agents ssh id_rsa id_ed25519 --quiet` > /dev/null 2>&1
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"

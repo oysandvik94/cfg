@@ -57,4 +57,6 @@ vim.keymap.set("n","<Leader>lp", "<Cmd>lua require'dap'.set_breakpoint(nil, nil,
 vim.keymap.set("n","<Leader>dr", "<Cmd>lua require'dap'.repl.open()<CR>")
 vim.keymap.set("n","<Leader>dl", "<Cmd>lua require'dap'.run_last()<CR>")
 
+vim.keymap.set({'n', 'v'}, '<Space>', '<Nop>')
+
 

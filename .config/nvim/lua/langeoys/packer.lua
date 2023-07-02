@@ -15,6 +15,11 @@ return require('packer').startup(function(use)
     use({ 'rose-pine/neovim', as = 'rose-pine' })
 
     use('nvim-treesitter/nvim-treesitter', { run = ':TSUpdate' })
+    use({
+        "nvim-treesitter/nvim-treesitter-textobjects",
+        after = "nvim-treesitter",
+        requires = "nvim-treesitter/nvim-treesitter",
+    })
     use('nvim-treesitter/playground')
     use('nvim-lua/plenary.nvim')
     use('ThePrimeagen/harpoon')
@@ -82,6 +87,8 @@ return require('packer').startup(function(use)
                 { "nvim-telescope/telescope-dap.nvim" },
             },
         },
+
+        use("j-hui/fidget.nvim"),
 
         use("oysandvik94/boilercreate.nvim"),
         use("Decodetalkers/csharpls-extended-lsp.nvim"),

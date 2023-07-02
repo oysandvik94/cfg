@@ -7,6 +7,8 @@ vim.keymap.set('n', '<leader>fsg', builtin.lsp_dynamic_workspace_symbols, {})
 vim.keymap.set('n', '<leader>fd', builtin.diagnostics, {})
 vim.keymap.set('n', '<leader>ft', vim.cmd.Telescope, {})
 
+vim.keymap.set('n', '<leader>lrr', builtin.lsp_references, {})
+
 vim.keymap.set('n', '<C-p>', builtin.git_files, {})
 vim.keymap.set('n', '<leader>ps', function()
 	builtin.grep_string({ search = vim.fn.input("Grep > ") });
