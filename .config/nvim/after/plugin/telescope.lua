@@ -4,7 +4,10 @@ vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
 vim.keymap.set('n', '<leader>fc', builtin.commands, {})
 vim.keymap.set('n', '<leader>fsd', builtin.lsp_document_symbols, {})
 vim.keymap.set('n', '<leader>fsg', builtin.lsp_dynamic_workspace_symbols, {})
-vim.keymap.set('n', '<leader>fd', builtin.diagnostics, {})
+-- Find diagnostics filtered by type
+vim.keymap.set('n', '<leader>fd', function()
+    builtin.diagnostics({ severity_limit = 'WARN'   });
+end)
 vim.keymap.set('n', '<leader>ft', vim.cmd.Telescope, {})
 
 vim.keymap.set('n', '<leader>lrr', builtin.lsp_references, {})

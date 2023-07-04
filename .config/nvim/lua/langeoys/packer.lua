@@ -26,6 +26,11 @@ return require('packer').startup(function(use)
     use('mbbill/undotree')
     use('tpope/vim-fugitive')
 
+    use {
+        'nvim-lualine/lualine.nvim',
+        requires = { 'nvim-tree/nvim-web-devicons', opt = true }
+    }
+
     -- LSP
     use {
         'VonHeikemen/lsp-zero.nvim',
@@ -42,7 +47,10 @@ return require('packer').startup(function(use)
             { 'williamboman/mason-lspconfig.nvim' }, -- Optional
 
             -- Autocompletion
-            { 'hrsh7th/nvim-cmp' },                                                                    -- Required
+            { 'hrsh7th/nvim-cmp', dependencies = {
+                'hrsh7th/cmp-buffer',
+                'hrsh7th/cmp-path'
+            }},                                                                    -- Required
             { 'hrsh7th/cmp-nvim-lsp' },                                                                -- Required
             { 'L3MON4D3/LuaSnip',                 dependencies = { "rafamadriz/friendly-snippets" } }, -- Required
         },
