@@ -18,7 +18,6 @@ vim.keymap.set('n', '<leader>ps', function()
 end)
 
 require('telescope').load_extension('fzy_native')
-require("telescope").load_extension "file_browser"
 require('telescope').load_extension('dap')
 -- open file_browser with the path of the current buffer
 vim.api.nvim_set_keymap(
