@@ -35,8 +35,6 @@ vim.opt.updatetime = 50
 
 vim.g.mapleader = " "
 
--- Clipboard
-vim.opt.clipboard="unnamedplus"
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
 local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })

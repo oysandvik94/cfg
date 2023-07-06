@@ -56,7 +56,6 @@ return {
 
     "rafamadriz/friendly-snippets",
     "windwp/nvim-autopairs",
-    "aserowy/tmux.nvim",
     "tpope/vim-surround",
     "github/copilot.vim",
     "almo7aya/openingh.nvim",
