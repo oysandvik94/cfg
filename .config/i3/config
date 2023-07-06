@@ -31,16 +31,18 @@ bindsym $mod+Ctrl+s exec --no-startup-id maim -o --select | xclip -selection cli
 
 # Set keyboard layout
 exec_always "setxkbmap -layout us"
-exec_always "xmodmap ~/.config/.xmodmap"
+exec_always --no-startup-id "xmodmap $HOME/.config/.xmodmap"
 exec_always --no-startup-id "$HOME/.config/polybar/launch.sh"
-# exec_always nitrogen --restore
 exec_always --no-startup-id "picom --experimental-backends -b #000000"
 exec "brightnessctl set 100%"
 exec "wal -R"
-exec "~/.config/scripts/sshEnable.sh"
+# exec "~/.config/scripts/sshEnable.sh" TODO: Remove if ssh hasnt been a problem in a while
 
-# Fix password stuff
-# exec --no-startup-id /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 &
+# Disable laptop monitor if lid is closed during boot
+exec --no-startup-id grep -q closed /proc/acpi/button/lid/LID/state && xrandr --output eDP-1 --off
+
+# Lid open event
+# bindsym XF86ScreenSaver exec --no-startup-id acpi_listen | grep --line-buffered 'button/lid' | grep --line-buffered open && xrandr --output eDP-1 --auto
 
 # Styling from pywal
 set_from_resource $fg i3wm.color7 #f0f0f0

@@ -1,3 +1,5 @@
+# Fig pre block. Keep at the top of this file.
+[[ -f "$HOME/.fig/shell/zshrc.pre.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.pre.zsh"
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -141,17 +143,17 @@ alias fzfd='cd $(find . -type d -print | fzf)'
 
 axosDbMigration() {
     axospath="/home/ysteinlangelandsandvik/dev/axos/axos/backend/api"
-    dotnet ef migrations add "$1" --project $axospath/Axos.Db --startup-project $axospath/Axos.WebApi --context AxosDbContext 
+    dotnet ef migrations add "$1" --project $axospath/Axos.Db --startup-project $axospath/Axos.WebApi --context AxosDbContext -- RuntimeConfig:IsMigrationMode=true
 }
 
 axosDbUpdate() {
     axospath="/home/ysteinlangelandsandvik/dev/axos/axos/backend/api"
-    dotnet ef database update --project $axospath/Axos.Db --startup-project $axospath/Axos.WebApi --context AxosDbContext 
+    dotnet ef database update --project $axospath/Axos.Db --startup-project $axospath/Axos.WebApi --context AxosDbContext -- RuntimeConfig:IsMigrationMode=true
 }
 
 axosDbRevert() {
     axospath="/home/ysteinlangelandsandvik/dev/axos/axos/backend/api"
-    dotnet ef migrations remove --project $axospath/Axos.Db --startup-project $axospath/Axos.WebApi --context AxosDbContext 
+    dotnet ef migrations remove --project $axospath/Axos.Db --startup-project $axospath/Axos.WebApi --context AxosDbContext -- RuntimeConfig:IsMigrationMode=true
 }
 
 if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
@@ -167,3 +169,6 @@ export NVM_DIR="$HOME/.nvm"
 export PATH="$PATH:/home/ysteinlangelandsandvik/.cargo/bin"
 
 alias vim=nvim
+
+# Fig post block. Keep at the bottom of this file.
+[[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.post.zsh"

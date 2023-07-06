@@ -3,15 +3,18 @@
 # Terminate already running bar instances
 killall -q polybar
 
-# Launch bar1 and bar2
-echo "---" | tee -a /tmp/polybar1.log 
-#polybar mybar 2>&1 | tee -a /tmp/polybar1.log & disown
+# Launch bar only if there are multiple displays
 if type "xrandr"; then
-  for m in $(xrandr --query | grep " connected" | cut -d" " -f1); do
-    MONITOR=$m polybar --reload mybar &
-  done
+  if [ "$(xrandr --query | grep ' connected' | wc -l)" -gt 1 ]; then
+    for m in $(xrandr --query | grep " connected" | cut -d" " -f1); do
+      MONITOR=$m polybar --reload mybar &
+    done
+  else
+    polybar --reload mybar &
+  fi
 else
   polybar --reload mybar &
 fi
 
 echo "Bars launched..."
+
