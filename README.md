@@ -3,3 +3,4 @@
 Install list
 
 i3
+nvim
