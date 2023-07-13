@@ -75,6 +75,7 @@ return {
     "j-hui/fidget.nvim",
 
     "oysandvik94/boilercreate.nvim",
+    -- {dir = "~/dev/boilercreate"},
     "Decodetalkers/csharpls-extended-lsp.nvim",
     'stevearc/oil.nvim'
 }

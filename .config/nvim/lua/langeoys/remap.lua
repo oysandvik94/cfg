@@ -59,4 +59,6 @@ vim.keymap.set("n","<Leader>dl", "<Cmd>lua require'dap'.run_last()<CR>")
 
 vim.keymap.set({'n', 'v'}, '<Space>', '<Nop>')
 
+-- Close windows
+vim.keymap.set("n", "<leader>q", "<cmd>q<CR>")
 
