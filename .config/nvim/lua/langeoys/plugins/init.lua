@@ -55,7 +55,6 @@ return {
     "lewis6991/gitsigns.nvim",
 
     "rafamadriz/friendly-snippets",
-    "windwp/nvim-autopairs",
     "tpope/vim-surround",
     "github/copilot.vim",
     "almo7aya/openingh.nvim",

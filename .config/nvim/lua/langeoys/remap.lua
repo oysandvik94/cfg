@@ -31,9 +31,6 @@ vim.keymap.set("n", "<leader>Y", [["+Y]])
 -- Delete without putting in to register
 vim.keymap.set({"n", "v"}, "<leader>d", [["_d]])
 
--- Preserve esc behaviour in visual block mode
-vim.keymap.set("i", "<C-c>", "<Esc>")
-
 -- Remove Q, macro thing
 vim.keymap.set("n", "Q", "<nop>")
 
