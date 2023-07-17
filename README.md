@@ -3,10 +3,25 @@
 Install list
 
 i3
+
 nvim
+
 keychain
+
 kitty
+
 pip
+
 pywal
+
 firefox
+
 polybar
+
+picom
+
+brightnessctl
+
+tmux
+
+tpm
