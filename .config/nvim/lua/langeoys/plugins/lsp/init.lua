@@ -3,85 +3,51 @@ return {
     branch = 'v2.x',
     dependencies = {
         -- LSP Support
-        { 'neovim/nvim-lspconfig' },     -- Required
-        {                                -- Optional
+        { 'neovim/nvim-lspconfig' }, -- Required
+        {                            -- Optional
             'williamboman/mason.nvim',
             build = function()
                 pcall(vim.cmd, 'MasonUpdate')
             end,
         },
-        { 'williamboman/mason-lspconfig.nvim' },     -- Optional
+        { 'williamboman/mason-lspconfig.nvim' }, -- Optional
 
         -- Autocompletion
-        { 'hrsh7th/nvim-cmp' },         -- Required
-        { 'hrsh7th/cmp-nvim-lsp' },     -- Required
-        { 'L3MON4D3/LuaSnip' },         -- Required
+        { 'hrsh7th/nvim-cmp' },     -- Required
+        { 'hrsh7th/cmp-nvim-lsp' }, -- Required
+        { 'L3MON4D3/LuaSnip' },     -- Required
+        { 'onsails/lspkind.nvim' }
     },
     config = function()
         local lsp = require('lsp-zero').preset({})
-
-
 
         lsp.ensure_installed({
             "tsserver",
             "eslint",
             "omnisharp",
-            "lua_ls"
+            "lua_ls",
+            "jdtls"
         })
 
-        lsp.configure('omnisharp', {
-            solution_first = true,
-            handlers = {
-                ["textDocument/definition"] = require('omnisharp_extended').handler,
-            },
-            enable_editorconfig_support = true,
-        })
+        local lspconfig = require("lspconfig");
 
+        lsp.configure('omnisharp', require('langeoys.plugins.lsp.omnisharp').Setup())
 
         lsp.on_attach(function(client, bufnr)
             local opts = { buffer = bufnr, remap = false }
+            require("langeoys.plugins.lsp.keymaps").Setup(opts)
 
             if client.server_capabilities.signatureHelpProvider then
                 require('lsp-overloads').setup(client, {})
             end
-
-            vim.keymap.set("n", "<A-s>", ":LspOverloadsSignature<CR>", { noremap = true, silent = true })
-            vim.keymap.set("i", "<A-s>", "<cmd>LspOverloadsSignature<CR>", { noremap = true, silent = true })
-
-            vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
-            vim.keymap.set("n", "gD", function() vim.lsp.buf.declaration() end, opts)
-            vim.keymap.set("n", "gi", function() vim.lsp.buf.implementation() end, opts)
-            vim.keymap.set("n", "<leader>lh", function() vim.lsp.buf.hover() end, opts)
-            vim.keymap.set("n", "<leader>lws", function() vim.lsp.buf.workspace_symbol() end, opts)
-            vim.keymap.set("n", "<leader>ld", function() vim.diagnostic.open_float() end, opts)
-            vim.keymap.set("n", "ge", function() vim.diagnostic.goto_next() end, opts)
-            vim.keymap.set("n", "gE", function() vim.diagnostic.goto_prev() end, opts)
-            vim.keymap.set("n", "<leader>lca", function() vim.lsp.buf.code_action() end, opts)
-            -- vim.keymap.set("n", "<leader>lrr", function() vim.lsp.buf.references() end, opts)
-            vim.keymap.set("n", "<leader>lrn", function() vim.lsp.buf.rename() end, opts)
-            vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
-
-            vim.keymap.set({ 'n', 'x' }, '<leader>lf', function()
-                vim.lsp.buf.format({ async = false, timeout_ms = 10000 })
-            end, opts)
         end)
 
         -- Setup is done by jdtls.nvim plugin
         lsp.skip_server_setup({ 'jdtls' })
 
         -- Fix Undefined global 'vim'
-        local lspconfig = require("lspconfig");
         lspconfig.lua_ls.setup(lsp.nvim_lua_ls());
 
-        lsp.configure('csharp_ls', {
-            root_dir = function(startpath)
-                return lspconfig.util.root_pattern("*.sln")(startpath)
-                    or lspconfig.util.root_pattern("*.csproj")(startpath)
-                    or lspconfig.util.root_pattern("*.fsproj")(startpath)
-                    or lspconfig.util.root_pattern(".git")(startpath)
-            end,
-
-        })
         local luasnip = require 'luasnip'
         luasnip.config.setup {}
 
@@ -90,6 +56,7 @@ return {
         local cmp = require("cmp")
         require("luasnip.loaders.from_vscode").lazy_load()
         local cmp_action = require('lsp-zero').cmp_action()
+        local lspkind = require('lspkind')
 
         cmp.setup({
             snippet = {
@@ -103,12 +70,23 @@ return {
             },
             sources = {
                 { name = 'nvim_lsp' },
-                { name = 'luasnip', keyword_length = 2 },
+                { name = 'nvim_lsp_signature_help' },
+                { name = 'luasnip',                keyword_length = 2 },
             },
             mapping = {
                 ['<C-f>'] = cmp_action.luasnip_jump_forward(),
                 ['<C-b>'] = cmp_action.luasnip_jump_backward(),
                 ["<C-K>"] = cmp.mapping.complete(),
+            },
+            formatting = {
+                format = lspkind.cmp_format({
+                    mode = 'symbol_text',
+                    maxwidth = 50,
+                    ellipsis_char = '...',
+                    before = function(_, vim_item)
+                        return vim_item
+                    end
+                })
             }
         })
 

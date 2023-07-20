@@ -25,3 +25,5 @@ brightnessctl
 tmux
 
 tpm
+
+xclip

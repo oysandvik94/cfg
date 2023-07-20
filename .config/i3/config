@@ -76,8 +76,7 @@ floating_modifier $mod
 bindsym $mod+Shift+q kill
 
 # start dmenu (a program launcher)
-bindsym $mod+d exec --no-startup-id dmenu_run -nb "$bg" -nf "$fg" -sb "$fg" -sf "$bg"
-bindsym $mod+Ctrl+d exec i3-dmenu-desktop -nb "$fg" -nf "$bg" -sb "$bg" -sf "$fg"
+bindsym $mod+d exec --no-startup-id rofi -show drun
 
 # A more modern dmenu replacement is rofi:
 # bindcode $mod+40 exec "rofi -modi drun,run -show drun"

@@ -4,11 +4,9 @@ return {
     "Hoffs/omnisharp-extended-lsp.nvim",
     'saadparwaiz1/cmp_luasnip',
     "rafamadriz/friendly-snippets",
-    "tpope/vim-surround",
     "github/copilot.vim",
     "almo7aya/openingh.nvim",
     'Issafalcon/lsp-overloads.nvim',
-    "nvim-telescope/telescope-fzy-native.nvim",
     {
         "mfussenegger/nvim-dap",
         lazy = true,

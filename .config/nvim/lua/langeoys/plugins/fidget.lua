@@ -1,6 +1,8 @@
 return {
     "j-hui/fidget.nvim",
-    config = function ()
-        require"fidget".setup{}
+    tag = "legacy",
+    event = "LspAttach",
+    config = function()
+        require "fidget".setup {}
     end
 }
