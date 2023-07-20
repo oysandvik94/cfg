@@ -8,12 +8,6 @@ vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 -- Keep cursor at start of line when using J
 vim.keymap.set("n", "J", "mzJ`z")
 
--- Splits
-vim.keymap.set("n", "<C-J>", "<C-W><C-J>")
-vim.keymap.set("n", "<C-K>", "<C-W><C-K>")
-vim.keymap.set("n", "<C-L>", "<C-W><C-L>")
-vim.keymap.set("n", "<C-H>", "<C-W><C-H>")
-
 -- Keep cursor in middle when paging
 vim.keymap.set("n", "<C-d>", "<C-d>zz")
 vim.keymap.set("n", "<C-u>", "<C-u>zz")

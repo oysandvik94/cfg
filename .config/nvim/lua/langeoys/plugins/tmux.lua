@@ -1,11 +1,21 @@
 return {
-    "aserowy/tmux.nvim",
+    "alexghergh/nvim-tmux-navigation",
+    event = "VeryLazy",
     config = function()
-        require("tmux").setup({
-            resize = {
-                -- Setting this to trues sets alt+jk to resize, but I am using these for harpoon shortcuts
-                enable_default_keybindings = false,
-            }
+        local nvim_tmux_nav = require("nvim-tmux-navigation")
+        nvim_tmux_nav.setup({
+            keybindings = {
+                left = "<C-h>",
+                down = "<C-j>",
+                up = "<C-k>",
+                right = "<C-l>",
+            },
         })
+
+        vim.keymap.set("n", "<C-h>", "<Cmd>NvimTmuxNavigateLeft<CR>", { silent = true })
+        vim.keymap.set("n", "<C-j>", "<Cmd>NvimTmuxNavigateDown<CR>", { silent = true })
+        vim.keymap.set("n", "<C-k>", "<Cmd>NvimTmuxNavigateUp<CR>", { silent = true })
+        vim.keymap.set("n", "<C-l>", "<Cmd>NvimTmuxNavigateRight<CR>", { silent = true })
     end,
 }
+

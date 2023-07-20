@@ -4,7 +4,6 @@ return {
     "Hoffs/omnisharp-extended-lsp.nvim",
     'saadparwaiz1/cmp_luasnip',
     "rafamadriz/friendly-snippets",
-    "github/copilot.vim",
     "almo7aya/openingh.nvim",
     'Issafalcon/lsp-overloads.nvim',
     {
