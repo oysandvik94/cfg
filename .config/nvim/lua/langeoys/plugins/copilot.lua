@@ -2,7 +2,7 @@ return {
     "github/copilot.vim",
     config = function()
         vim.g.copilot_filetypes = {
-            ["java"] = true
+            ["java"] = false
         }
     end
 }
