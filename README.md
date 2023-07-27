@@ -27,3 +27,5 @@ tmux
 tpm
 
 xclip
+
+sdkman

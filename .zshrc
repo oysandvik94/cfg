@@ -139,7 +139,7 @@ alias cdnet="cd /home/ysteinlangelandsandvik/dev/netreg/egersund-net-netreg2"
 alias cdaxos="cd /home/ysteinlangelandsandvik/dev/axos/axos"
 alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 alias fzfd='cd $(find . -type d -print | fzf)'
-
+alias fztmux='~/.local/bin/scripts/tmux-sessionizer'
 
 axosDbMigration() {
     axospath="/home/ysteinlangelandsandvik/dev/axos/axos/backend/api"

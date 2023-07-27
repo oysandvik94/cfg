@@ -69,7 +69,7 @@ return {
                 documentation = cmp.config.window.bordered(),
             },
             sources = {
-                { name = 'nvim_lsp' },
+                { name = 'nvim_lsp', keyword_length = 3, max_item_count = 30 },
                 { name = 'nvim_lsp_signature_help' },
                 { name = 'luasnip',                keyword_length = 2 },
             },
