@@ -37,4 +37,6 @@ Set these in .zshenv
 ```
 # Will be used for tmux sessionizer alt k
 MAIN_PROJECT="absolute/directory"
+# Decide battery to show in polybar
+BATTERY_NAME="BAT0"
 ```
