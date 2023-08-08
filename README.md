@@ -30,6 +30,8 @@ xclip
 
 sdkman
 
+rofi
+
 ## Environment variables
 
 Set these in .zshenv

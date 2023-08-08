@@ -7,6 +7,7 @@ function omnisharp.Setup()
             ["textDocument/definition"] = require('omnisharp_extended').handler,
         },
         enable_editorconfig_support = true,
+        root_dir = require('lspconfig.util').root_pattern("*.sln")
     }
 end
 
