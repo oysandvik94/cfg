@@ -53,3 +53,6 @@ vim.keymap.set({'n', 'v'}, '<Space>', '<Nop>')
 -- Close windows
 vim.keymap.set("n", "<leader>q", "<cmd>q<CR>")
 
+-- Splits
+vim.keymap.set("n", "<leader>h", "<cmd>split<CR>")
+vim.keymap.set("n", "<leader>v", "<cmd>vsplit<CR>")

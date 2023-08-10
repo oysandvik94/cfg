@@ -11,8 +11,8 @@ fi
 set -o vi
 
 # Fix ssh agent
-eval $(keychain --eval --agents ssh --quick --quiet)
-# eval `keychain --eval --agents ssh id_rsa id_ed25519 --quiet` > /dev/null 2>&1
+# eval $(keychain --eval --agents ssh --quick --quiet)
+eval `keychain --eval --agents ssh id_rsa id_ed25519 --quiet` > /dev/null 2>&1
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
