@@ -1,13 +1,12 @@
 return {
     {
-        'Shatur/neovim-ayu',
+        'catppuccin/nvim',
         lazy = false,
+    },
+    {
+        'folke/tokyonight.nvim',
         config = function()
-            require('ayu').setup({
-                overrides = {}, -- A dictionary of group names, each associated with a dictionary of parameters (`bg`, `fg`, `sp` and `style`) and colors in hex.
-            })
-
-            vim.cmd('colorscheme ayu')
+            vim.cmd('colorscheme tokyonight-night')
         end
     }
 }

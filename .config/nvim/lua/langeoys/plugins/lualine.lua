@@ -15,15 +15,15 @@ return {
     config = function()
         require('lualine').setup({
             options = {
-                theme = 'iceberg_dark',
+                theme = 'tokyonight',
             },
             sections = {
                 lualine_a = { 'mode' },
                 lualine_b = { 'filename' },
                 lualine_c = {},
-                lualine_x = {},
+                lualine_x = { 'diagnostics'},
                 lualine_y = { { search_count, type = "lua_expr" } },
-                lualine_z = { 'branch', 'diff', 'diagnostics' }
+                lualine_z = { 'branch', 'diff' }
             },
         })
     end
