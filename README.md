@@ -32,6 +32,8 @@ sdkman
 
 rofi
 
+fish
+
 ## Environment variables
 
 Set these in .zshenv
