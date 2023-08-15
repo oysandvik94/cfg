@@ -97,8 +97,8 @@ return {
             vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
         end
         local config = {
-            -- Enable virtual text
-            virtual_text = true,
+            -- Using lsp_lines.nvim
+            virtual_text = false,
             -- show signs
             signs = {
                 active = signs,
