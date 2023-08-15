@@ -11,3 +11,9 @@ if status is-interactive
     # Commands to run in interactive sessions can go here
 end
 
+# Variables
+set -x PATH $PATH $HOME/.dotnet/tools
+set -x DOTNET_ROOT $HOME/.dotnet
+set -x PATH $PATH $DOTNET_ROOT
+
+source ~/.config/fish/local_variables.fish
