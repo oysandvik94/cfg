@@ -43,4 +43,6 @@ Set these in .zshenv
 MAIN_PROJECT="absolute/directory"
 # Decide battery to show in polybar
 BATTERY_NAME="BAT0"
+# Load ssh keys
+SSH_KEYS="id_rsa etc"
 ```
