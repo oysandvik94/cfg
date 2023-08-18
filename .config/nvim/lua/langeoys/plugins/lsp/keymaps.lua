@@ -16,6 +16,7 @@ function keymaps.Setup(opts)
     vim.keymap.set("n", "<leader>lrr", function() vim.lsp.buf.references() end, opts)
     vim.keymap.set("n", "<leader>lrn", function() vim.lsp.buf.rename() end, opts)
     vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
+    vim.keymap.set("n", "<leader>ls", function() vim.lsp.buf.signature_help() end, opts)
 
     -- LSP Telescope bindings
     local builtin = require('telescope.builtin')
