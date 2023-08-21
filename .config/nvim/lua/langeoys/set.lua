@@ -52,3 +52,4 @@ vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = tr
 
 -- Cmdheight 0
 vim.opt.cmdheight = 0
+

@@ -9,6 +9,15 @@ local function search_count()
     return ""
 end
 
+local function show_macro_recording()
+    local recording_register = vim.fn.reg_recording()
+    if recording_register == "" then
+        return ""
+    else
+        return "Recording @" .. recording_register
+    end
+end
+
 return {
     'nvim-lualine/lualine.nvim',
     dependencies = { 'nvim-tree/nvim-web-devicons', lazy = true },
@@ -19,11 +28,11 @@ return {
             },
             sections = {
                 lualine_a = { 'mode' },
-                lualine_b = { 'filename' },
+                lualine_b = { 'filename',  },
                 lualine_c = {},
-                lualine_x = { 'diagnostics'},
-                lualine_y = { { search_count, type = "lua_expr" } },
-                lualine_z = { 'branch', 'diff' }
+                lualine_x = { 'diagnostics' },
+                lualine_y = { { "macro-recording", fmt = show_macro_recording }, { search_count, type = "lua_expr" } }, -- Tmp objects
+                lualine_z = { 'branch', 'diff' } -- git
             },
         })
     end
