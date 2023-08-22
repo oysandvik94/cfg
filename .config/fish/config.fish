@@ -17,3 +17,5 @@ set -x DOTNET_ROOT $HOME/.dotnet
 set -x PATH $PATH $DOTNET_ROOT
 
 source ~/.config/fish/local_variables.fish
+
+fish_add_path /home/ysteinlangelandsandvik/.spicetify

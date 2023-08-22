@@ -7,13 +7,13 @@ killall -q polybar
 if type "xrandr"; then
   if [ "$(xrandr --query | grep ' connected' | wc -l)" -gt 1 ]; then
     for m in $(xrandr --query | grep " connected" | cut -d" " -f1); do
-      MONITOR=$m polybar --reload mybar &
+      MONITOR=$m polybar --reload --config="~/.config/polybar/config.ini" mybar &
     done
   else
-    polybar --reload mybar &
+    polybar --reload --config="~/.config/polybar/config.ini" mybar &
   fi
 else
-  polybar --reload mybar &
+  polybar --reload --config="~/.config/polybar/config.ini" mybar &
 fi
 
 echo "Bars launched..."

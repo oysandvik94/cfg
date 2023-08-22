@@ -28,11 +28,15 @@ return {
             },
             sections = {
                 lualine_a = { 'mode' },
-                lualine_b = { 'filename',  },
+                lualine_b = { {
+                    'filename',
+                    path = 1,
+                    file_status = true
+                }, },
                 lualine_c = {},
                 lualine_x = { 'diagnostics' },
                 lualine_y = { { "macro-recording", fmt = show_macro_recording }, { search_count, type = "lua_expr" } }, -- Tmp objects
-                lualine_z = { 'branch', 'diff' } -- git
+                lualine_z = { 'branch', 'diff' }                                                                        -- git
             },
         })
     end

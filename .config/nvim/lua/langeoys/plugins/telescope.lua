@@ -68,7 +68,7 @@ return {
         require('telescope').setup({
             defaults = {
                 path_display = {
-                    truncate = true
+                    tail = true
                 },
                 dynamic_preview_title = true,
             },
