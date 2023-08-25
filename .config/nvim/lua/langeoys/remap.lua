@@ -29,10 +29,8 @@ vim.keymap.set({"n", "v"}, "<leader>d", [["_d]])
 vim.keymap.set("n", "Q", "<nop>")
 
 -- Quickfix navigation
-vim.keymap.set("n", "<C-k>", "<cmd>cnext<CR>zz")
-vim.keymap.set("n", "<C-j>", "<cmd>cprev<CR>zz")
-vim.keymap.set("n", "<leader>k", "<cmd>lnext<CR>zz")
-vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
+vim.keymap.set("n", "<leader>qk", "<cmd>cnext<CR>zz")
+vim.keymap.set("n", "<leader>qj", "<cmd>cprev<CR>zz")
 
 -- Search and replace all hits
 vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
@@ -50,9 +48,7 @@ vim.keymap.set("n","<Leader>dl", "<Cmd>lua require'dap'.run_last()<CR>")
 
 vim.keymap.set({'n', 'v'}, '<Space>', '<Nop>')
 
--- Close windows
-vim.keymap.set("n", "<leader>q", "<cmd>q<CR>")
-
 -- Splits
 vim.keymap.set("n", "<leader>h", "<cmd>split<CR>")
 vim.keymap.set("n", "<leader>v", "<cmd>vsplit<CR>")
+

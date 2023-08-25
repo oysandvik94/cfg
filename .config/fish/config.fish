@@ -5,7 +5,7 @@ alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 alias fztmux='~/.local/bin/scripts/tmux-sessionizer'
 
 # TODO: Extract RSA to env var
-bash -c "eval `keychain --eval --agents ssh $SSH_KEYS --quiet` > /dev/null 2>&1"
+# bash -c "eval `keychain --eval --agents ssh $SSH_KEYS --quiet` > /dev/null 2>&1"
 
 if status is-interactive
     # Commands to run in interactive sessions can go here

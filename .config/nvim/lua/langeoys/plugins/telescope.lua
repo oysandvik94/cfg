@@ -44,6 +44,9 @@ return {
         vim.keymap.set('n', '<leader>fc', builtin.commands, {})
         vim.keymap.set('n', '<leader>fsd', builtin.lsp_document_symbols, {})
         vim.keymap.set('n', '<leader>fsg', builtin.lsp_dynamic_workspace_symbols, {})
+        vim.keymap.set('n', '<leader>fr', function()
+            builtin.lsp_references({ jump_type = 'never'})
+        end, {})
         -- Find diagnostics filtered by type
         vim.keymap.set('n', '<leader>fd', function()
             builtin.diagnostics({ severity_limit = 'WARN' });
@@ -67,6 +70,7 @@ return {
 
         require('telescope').setup({
             defaults = {
+                layout_strategy = 'vertical',
                 path_display = {
                     tail = true
                 },
