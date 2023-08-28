@@ -1,16 +1,11 @@
 return {
-    {
-        'catppuccin/nvim',
-        lazy = false,
-    },
-    {
-        'folke/tokyonight.nvim',
-        config = function()
-            require("tokyonight").setup({
-                style = "night",
-                transparent = true
-            })
-            vim.cmd('colorscheme tokyonight-night')
-        end
-    }
+    "rose-pine/neovim",
+    config = function()
+        require('rose-pine').setup({
+            variant = 'main',
+        })
+
+        -- Set colorscheme after options
+        vim.cmd('colorscheme rose-pine')
+    end,
 }
