@@ -25,17 +25,20 @@ return {
     'nvim-telescope/telescope.nvim',
     dependencies = {
         'nvim-lua/plenary.nvim',
-        'nvim-telescope/telescope-fzy-native.nvim'
+        'nvim-telescope/telescope-fzy-native.nvim',
     },
     config = function()
+        local telescope = require('telescope')
         local builtin = require('telescope.builtin')
         local opts = { noremap = true, silent = true }
+
+        -- Extensions
+        telescope.load_extension('fzy_native')
 
         vim.keymap.set('n', '<leader>ff', function()
             projectFiles()
         end, opts)
         vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
-
         vim.keymap.set('v', '<leader>fg', function()
             local text = getVisualSelection()
             builtin.live_grep({ default_text = text })
@@ -58,8 +61,8 @@ return {
             builtin.grep_string({ search = vim.fn.input("Grep > ") });
         end)
 
-        require('telescope').load_extension('fzy_native')
-        require('telescope').load_extension('dap')
+        vim.keymap.set('n', '<leader>fj', builtin.jumplist, {})
+
         -- open file_browser with the path of the current buffer
         vim.api.nvim_set_keymap(
             "n",
@@ -67,6 +70,7 @@ return {
             ":Telescope file_browser path=%:p:h select_buffer=true<CR>",
             { noremap = true }
         )
+
 
         require('telescope').setup({
             defaults = {

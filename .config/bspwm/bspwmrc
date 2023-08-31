@@ -1,15 +1,24 @@
 #! /bin/sh
 
 export SXHKD_SHELL='/usr/bin/sh'
+
+if grep -q "closed" /proc/acpi/button/lid/LID/state; then
+    xrandr --output eDP-1 --off
+    bspc monitor DP-1-2 -d chat term web music code notes 
+    bspc desktop Desktop --remove
+    bspc monitor --reset-desktops chat term web music code notes
+else 
+    bspc monitor -d chat term web music code notes 
+fi
+
 pgrep -x sxhkd > /dev/null || sxhkd &
 $HOME/.config/polybar/launch.sh 2>~/polylog &
 picom --experimental-backends -b #000000 &
 dunst &
 feh --bg-scale ~/wallpapers/ocean.jpg
 /usr/libexec/polkit-gnome-authentication-agent-1 &
+setxkbmap us
 ~/.config/bspwm/delayXmodmap.sh &
-
-bspc monitor -d chat term web music code notes 
 
 bspc config window_gap          10
 

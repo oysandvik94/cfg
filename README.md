@@ -38,6 +38,8 @@ feh
 
 dunst
 
+xss-lock
+
 ## Environment variables
 
 Set these in a bashscript in /etc/profile.d
@@ -51,4 +53,5 @@ BATTERY_ADAPTER_NAME="ADP0"
 NETWORK_INTERFACE="wlp"
 # Load ssh keys
 SSH_KEYS="id_rsa etc"
+OPENAI_API_KEY=""
 ```

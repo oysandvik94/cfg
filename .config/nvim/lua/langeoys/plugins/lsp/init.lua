@@ -39,7 +39,9 @@ return {
             require("langeoys.plugins.lsp.keymaps").Setup(opts)
 
             if client.server_capabilities.signatureHelpProvider then
-                require('lsp-overloads').setup(client, {})
+                require('lsp-overloads').setup(client, {
+                    display_automatically = false
+                })
             end
         end)
 
