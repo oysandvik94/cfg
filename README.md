@@ -4,6 +4,8 @@
 
 nvim
 
+lxpolkit
+
 keychain
 
 kitty
@@ -32,6 +34,8 @@ fish
 
 bspwm
 
+xdotool
+
 sxhkd
 
 feh
@@ -39,6 +43,12 @@ feh
 dunst
 
 xss-lock
+
+fzf
+
+ripgrep
+
+npm
 
 ## Environment variables
 

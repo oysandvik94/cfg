@@ -15,4 +15,4 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 
-return require('lazy').setup('langeoys.plugins')
+return require('lazy').setup({ { import = 'langeoys.plugins' }, { import = "langeoys.plugins.lsp" } })

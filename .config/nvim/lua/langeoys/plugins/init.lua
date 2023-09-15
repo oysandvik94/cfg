@@ -2,8 +2,6 @@ return {
     { 'rose-pine/neovim', name = 'rose-pine' },
     'nvim-lua/plenary.nvim',
     "Hoffs/omnisharp-extended-lsp.nvim",
-    'saadparwaiz1/cmp_luasnip',
-    "rafamadriz/friendly-snippets",
     "almo7aya/openingh.nvim",
     'Issafalcon/lsp-overloads.nvim',
     {
@@ -15,8 +13,6 @@ return {
             { "nvim-telescope/telescope-dap.nvim" },
         },
     },
-
     "oysandvik94/boilercreate.nvim",
-    -- {dir = "~/dev/boilercreate"},
     "Decodetalkers/csharpls-extended-lsp.nvim",
 }

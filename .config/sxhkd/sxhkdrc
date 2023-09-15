@@ -62,6 +62,10 @@ super + ctrl + {m,x,y,z}
 #
 
 # focus the node in the given direction
+ctrl + {h,j,k,l}
+    ~/dev/bspwm-nvim-tmux-navigation/windowSwitcher.sh {west,south,north,east}
+
+# focus the node in the given direction
 super + {_,shift + }{h,j,k,l}
 	bspc node -{f,s} {west,south,north,east}
 
@@ -74,4 +78,15 @@ super + {o,i}
 
 super + shift + s
     maim -o --select | xclip -selection clipboard -t image/png
+
+super + {b, B}
+    brightnessctl set 10%{+,-}
+
+# Do volume
+super + {v, V}
+    amixer -D pulse sset Master 5%{+,-}
+
+# Scrachpads
+super + ctrl + Return
+    ~/.local/bin/scripts/scpad
 
