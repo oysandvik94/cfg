@@ -25,7 +25,7 @@ vim.opt.termguicolors = true
 
 -- Scrollstuff
 vim.opt.scrolloff = 8
-vim.opt.signcolumn = "yes"
+vim.opt.signcolumn = "yes:2"
 vim.opt.isfname:append("@-@")
 
 
@@ -52,4 +52,8 @@ vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = tr
 
 -- Cmdheight 0
 vim.opt.cmdheight = 0
+
+-- Automatically update files when changed outside of vim
+vim.cmd([[set autoread]])
+vim.cmd([[autocmd FocusGained * checktime]])
 

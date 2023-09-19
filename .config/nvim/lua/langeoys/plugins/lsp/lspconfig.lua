@@ -3,10 +3,8 @@ return {
     event = { "BufReadPre", "BufNewFile" },
     dependencies = {
         "hrsh7th/nvim-cmp",
-        { "antosha417/nvim-lsp-file-operations", config = true }
     },
     config = function()
-        -- local lspconfig = require("lspconfig")
         local cmp_nvim_lsp = require("cmp_nvim_lsp")
 
         vim.api.nvim_create_autocmd('LspAttach', {
@@ -22,15 +20,20 @@ return {
                 vim.keymap.set("n", "<leader>lh", function() vim.lsp.buf.hover() end, opts)
                 vim.keymap.set("n", "<leader>lws", function() vim.lsp.buf.workspace_symbol() end, opts)
                 vim.keymap.set("n", "<leader>ld", function() vim.diagnostic.open_float() end, opts)
-                vim.keymap.set("n", "ge", function() vim.diagnostic.goto_next() end, opts)
-                vim.keymap.set("n", "gE", function() vim.diagnostic.goto_prev() end, opts)
-                vim.keymap.set("n", "<leader>lca", function() vim.lsp.buf.code_action() end, opts)
-                vim.keymap.set("n", "<leader>lrr", function() vim.lsp.buf.references() end, opts)
-                vim.keymap.set("n", "<leader>lrn", function() vim.lsp.buf.rename() end, opts)
+                vim.keymap.set("n", "[d", function() vim.diagnostic.goto_next() end, opts)
+                vim.keymap.set("n", "]d", function() vim.diagnostic.goto_prev() end, opts)
+                vim.keymap.set("n", "<leader>lc", function() vim.lsp.buf.code_action() end, opts)
+                vim.keymap.set("n", "<leader>lr", function() vim.lsp.buf.rename() end, opts)
+
+                local ls = require("luasnip")
+                vim.keymap.set({"i", "s"}, "<C-f>", function() ls.jump( 1) end, {silent = true})
+                vim.keymap.set({"i", "s"}, "<C-b>", function() ls.jump(-1) end, {silent = true})
 
                 -- LSP Telescope bindings
                 local builtin = require('telescope.builtin')
-                vim.keymap.set('n', '<leader>lrr', builtin.lsp_references, {})
+                vim.keymap.set('n', '<leader>gr', function()
+                    builtin.lsp_references({ jump_type = 'never' })
+                end, {})
 
                 vim.keymap.set({ 'n', 'x' }, '<leader>lf', function()
                     vim.lsp.buf.format({ async = false, timeout_ms = 10000 })

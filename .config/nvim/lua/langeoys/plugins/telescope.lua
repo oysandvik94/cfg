@@ -48,13 +48,14 @@ return {
         vim.keymap.set('n', '<leader>fsd', builtin.lsp_document_symbols, {})
         vim.keymap.set('n', '<leader>fsg', builtin.lsp_dynamic_workspace_symbols, {})
         vim.keymap.set('n', '<leader>fr', function()
-            builtin.lsp_references({ jump_type = 'never'})
+            builtin.lsp_references({ jump_type = 'never' })
         end, {})
         -- Find diagnostics filtered by type
         vim.keymap.set('n', '<leader>fd', function()
             builtin.diagnostics({ severity_limit = 'WARN' });
         end)
         vim.keymap.set('n', '<leader>ft', vim.cmd.Telescope, {})
+        vim.keymap.set('n', '<leader>fk', builtin.keymaps, { desc = "Search keymaps in telescope"})
 
         vim.keymap.set('n', '<C-p>', builtin.git_files, {})
         vim.keymap.set('n', '<leader>ps', function()
@@ -74,7 +75,12 @@ return {
 
         require('telescope').setup({
             defaults = {
-                layout_strategy = 'vertical',
+                layout_strategy = 'center',
+                sorting_strategy = 'ascending',
+                layout_config = {
+                    anchor = "N",
+                    width = 99
+                },
                 path_display = {
                     tail = true
                 },

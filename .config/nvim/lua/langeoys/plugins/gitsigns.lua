@@ -14,28 +14,24 @@ return {
                     if vim.wo.diff then return ']c' end
                     vim.schedule(function() gs.next_hunk() end)
                     return 'zz<Ignore>'
-                end, { expr = true })
+                end, { expr = true, desc = "Go to next hunk" })
 
                 map('n', '[c', function()
                     if vim.wo.diff then return '[c' end
                     vim.schedule(function() gs.prev_hunk() end)
                     return 'zz<Ignore>'
-                end, { expr = true })
+                end, { expr = true,  desc = "Go to previous hunk"})
 
                 -- Actions
-                map('n', '<leader>hs', gs.stage_hunk)
-                map('n', '<leader>hr', gs.reset_hunk)
-                map('v', '<leader>hs', function() gs.stage_hunk { vim.fn.line('.'), vim.fn.line('v') } end)
-                map('v', '<leader>hr', function() gs.reset_hunk { vim.fn.line('.'), vim.fn.line('v') } end)
-                map('n', '<leader>hS', gs.stage_buffer)
-                map('n', '<leader>hu', gs.undo_stage_hunk)
-                map('n', '<leader>hR', gs.reset_buffer)
-                map('n', '<leader>hp', gs.preview_hunk)
-                map('n', '<leader>hb', function() gs.blame_line { full = true } end)
-                map('n', '<leader>tb', gs.toggle_current_line_blame)
-                map('n', '<leader>hd', gs.diffthis)
-                map('n', '<leader>hD', function() gs.diffthis('~') end)
-                map('n', '<leader>td', gs.toggle_deleted)
+                map('n', '<leader>cs', gs.stage_hunk, { desc = "Stage hunk"})
+                map('n', '<leader>cr', gs.reset_hunk, { desc = "Reset hunk"})
+                map('v', '<leader>cs', function() gs.stage_hunk { vim.fn.line('.'), vim.fn.line('v') } end, { desc = "Stage hunk"})
+                map('v', '<leader>cr', function() gs.reset_hunk { vim.fn.line('.'), vim.fn.line('v') } end, { desc = "Reset hunk"})
+                map('n', '<leader>cu', gs.undo_stage_hunk, { desc = "Undo stage hunk"})
+                map('n', '<leader>cp', gs.preview_hunk, { desc = "Preview hunk"})
+                map('n', '<leader>cb', function() gs.blame_line { full = true } end, { desc = "Git blame for this line"})
+                map('n', '<leader>cd', gs.diffthis, { desc = "Diff this line"})
+                map('n', '<leader>ctd', gs.toggle_deleted, { desc = "Toggle deleted lines"})
 
                 -- Text object
                 map({ 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
