@@ -55,6 +55,10 @@ super + ctrl + {m,x,y,z}
 # focus/swap
 #
 
+# (rotate clockwise/counterclockwise)/balance
+super + {_,shift,alt} + e
+  bspc node $(bspc query -N -n -n .!leaf || echo @/) {-R 90,-R 270,-B}
+
 # focus the node in the given direction
 ctrl + {h,j,k,l}
     ~/dev/bspwm-nvim-tmux-navigation/windowSwitcher.sh {west,south,north,east}
