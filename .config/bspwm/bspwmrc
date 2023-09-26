@@ -8,20 +8,25 @@ EXTERNAL_MONITOR="$(xrandr | grep " connected " | awk '{ print $1 }' | tail -n 1
 
 LID_STATUS=$(cat /proc/acpi/button/lid/LID0/state | awk '{print $2}')
 
+connected_monitors=$(xrandr | grep " connected" | awk '{print $1}')
+for monitor in $connected_monitors; do
+  xrandr --output "$monitor" --off
+done
+
+
 # Docked, lid is closed and external monitor is connected
 if xrandr -q | grep "${EXTERNAL_MONITOR} connected" && [ "$LID_STATUS" = 'closed' ]; then
-    xrandr --output "$INTERNAL_MONITOR" --off
     xrandr --output "$EXTERNAL_MONITOR" --primary --auto
     bspc monitor "$EXTERNAL_MONITOR" -d chat term web music code notes 
     bspc wm -O "$EXTERNAL_MONITOR"
-elif xrandr -q | grep "${EXTERNAL_MONITOR} connected" && [ "$LID_STATUS" = 'open' ]; then
+elif $EXTERNAL_MONITOR != $INTERNAL_MONITOR && [ "$LID_STATUS" = 'open' ]; then
     xrandr --output "$INTERNAL_MONITOR" --primary --mode 1920x1080 --rotate normal
     xrandr --output "$EXTERNAL_MONITOR" --mode 1920x1080 --rotate normal --right-of "$INTERNAL_MONITOR"
     bspc monitor "$INTERNAL_MONITOR" -d chat term web 
     bspc monitor "$EXTERNAL_MONITOR" -d music code notes
     bspc wm -O "$INTERNAL_MONITOR" "$EXTERNAL_MONITOR"
 else
-    ~/.config/bspwm/singleLaptop.sh &
+    ~/.config/bspwm/singleLaptop.sh
 fi
 
 # Startups
@@ -47,6 +52,11 @@ bspc config gapless_monocle      true
 # Get correct padding from polybar
 bspc config top_padding 40px
 bspc config ignore_ewmh_struts true
+
+# This fixes an issue with resolutions where windows dont fill the screen
+# https://github.com/baskerville/bspwm/issues/893#issuecomment-1331689623
+bspc config right_padding 0
+bspc config bottom_padding 0
 
 bspc config focused_border_color "#ebbcba"
 bspc config normal_border_color "#6e6a86"
