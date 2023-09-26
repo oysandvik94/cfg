@@ -57,3 +57,6 @@ vim.opt.cmdheight = 0
 vim.cmd([[set autoread]])
 vim.cmd([[autocmd FocusGained * checktime]])
 
+-- Spelling
+vim.cmd([[setlocal spell]])
+vim.opt.spelllang = "en_gb"

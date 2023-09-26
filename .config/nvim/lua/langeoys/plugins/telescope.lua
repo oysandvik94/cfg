@@ -35,9 +35,13 @@ return {
         -- Extensions
         telescope.load_extension('fzy_native')
 
+        -- Git files er litt irriterende på nye filer som ikke er added på git
         vim.keymap.set('n', '<leader>ff', function()
-            projectFiles()
+            builtin.find_files(opts)
         end, opts)
+        -- vim.keymap.set('n', '<leader>ff', function()
+        --     projectFiles()
+        -- end, opts)
         vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
         vim.keymap.set('v', '<leader>fg', function()
             local text = getVisualSelection()

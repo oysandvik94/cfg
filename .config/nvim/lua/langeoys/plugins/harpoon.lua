@@ -34,8 +34,6 @@ return {
             { desc = "Send second harpoon command to tmux window 2" })
         vim.keymap.set("n", "<A-L>", function() tmux.sendCommand(2, 3) end,
             { desc = "Send third harpoon command to tmux window 2" })
-        vim.keymap.set("n", "<A-:>", function() tmux.sendCommand(2, 4) end,
-            { desc = "Send fourth harpoon command to tmux window 2" })
 
         vim.cmd('highlight! HarpoonInactive guibg=NONE guifg=#6e6a86')
         vim.cmd('highlight! HarpoonActive guibg=NONE guifg=#F6C177')

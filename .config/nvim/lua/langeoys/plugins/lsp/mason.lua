@@ -18,6 +18,7 @@ return {
                 "jdtls",
                 "bashls",
                 "kotlin_language_server",
+                "pyright"
             },
 
             automatic_installation = true

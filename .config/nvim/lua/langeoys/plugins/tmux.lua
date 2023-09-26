@@ -18,7 +18,7 @@ return {
         -- vim.keymap.set("n", "<C-l>", "<Cmd>NvimTmuxNavigateRight<CR>", { silent = true })
 
         require 'nvim-tmux-navigation'.setup {
-            disable_when_zoomed = true -- defaults to false
+            disable_when_zoomed = false -- defaults to false
         }
     end,
 }
