@@ -65,4 +65,14 @@ bspc config border_width         2
 bspc rule -a scpad sticky=on state=floating rectangle=1000x600+0+0 center=true
 bspc rule -a chatgpt sticky=on state=floating rectangle=1500x800+0+0 center=true
 
+# Init slack
 bspc rule -a Slack desktop=chat follow=on focus=on
+slack &
+
+# Init spotify
+bspc rule -a ncspot desktop=music 
+kitty --class ncspot -e ncspot &
+
+# Init tmux
+bspc rule -a tmux desktop=term 
+kitty --class tmux -e tmux &
