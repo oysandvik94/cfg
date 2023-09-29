@@ -1,3 +1,32 @@
+local dap_ui_picker = function(opts)
+    local pickers = require("telescope.pickers")
+    local finders = require("telescope.finders")
+    local actions = require("telescope.actions")
+    local action_state = require("telescope.actions.state")
+    local conf = require("telescope.config").values
+    local dap_ui = require("dapui")
+
+    opts = opts or {}
+
+
+    pickers.new(opts, {
+        finder = finders.new_table {
+            results = { "scopes", "breakpoints", "stacks", "watches", "repl", "console" }
+        },
+        sorter = conf.generic_sorter(opts),
+        attach_mappings = function(bufnr)
+            actions.select_default:replace(function()
+                actions.close(bufnr)
+                local selection = action_state.get_selected_entry()
+                dap_ui.float_element(selection[1], { enter = true})
+
+            end)
+
+            return true
+        end,
+    }):find()
+end
+
 local function getVisualSelection()
     vim.cmd('noau normal! "vy"')
     local text = vim.fn.getreg('v')
@@ -26,6 +55,7 @@ return {
     dependencies = {
         'nvim-lua/plenary.nvim',
         'nvim-telescope/telescope-fzy-native.nvim',
+        "rcarriga/nvim-dap-ui",
     },
     config = function()
         local telescope = require('telescope')
@@ -59,7 +89,7 @@ return {
             builtin.diagnostics({ severity_limit = 'WARN' });
         end)
         vim.keymap.set('n', '<leader>ft', vim.cmd.Telescope, {})
-        vim.keymap.set('n', '<leader>fk', builtin.keymaps, { desc = "Search keymaps in telescope"})
+        vim.keymap.set('n', '<leader>fk', builtin.keymaps, { desc = "Search keymaps in telescope" })
 
         vim.keymap.set('n', '<C-p>', builtin.git_files, {})
         vim.keymap.set('n', '<leader>ps', function()
@@ -67,6 +97,8 @@ return {
         end)
 
         vim.keymap.set('n', '<leader>fj', builtin.jumplist, {})
+
+        vim.keymap.set('n', '<leader>fd', dap_ui_picker, {})
 
         -- open file_browser with the path of the current buffer
         vim.api.nvim_set_keymap(
@@ -76,11 +108,9 @@ return {
             { noremap = true }
         )
 
-
         require('telescope').setup({
             defaults = {
-                layout_strategy = 'center',
-                sorting_strategy = 'ascending',
+                layout_strategy = 'horizontal',
                 layout_config = {
                     anchor = "N",
                     width = 99

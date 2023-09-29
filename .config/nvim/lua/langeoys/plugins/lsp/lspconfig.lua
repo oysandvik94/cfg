@@ -54,6 +54,14 @@ return {
                     -- capabilities = capabilities,
                 }
             end,
+            ["angularls"] = function()
+                require("lspconfig").angularls.setup {
+                    capabilities = capabilities,
+                    on_attach = function ()
+                        vim.cmd[[compiler angular]]
+                    end
+                }
+            end,
             ["omnisharp"] = function()
                 vim.api.nvim_create_autocmd('FileType', {
                     pattern = { 'cs' },

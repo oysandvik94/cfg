@@ -11,11 +11,11 @@ local root_files = {
 
 local features = {
     -- change this to `true` to enable codelens
-    codelens = false,
+    codelens = true,
 
     -- change this to `true` if you have `nvim-dap`,
     -- `java-test` and `java-debug-adapter` installed
-    debugger = false,
+    debugger = true,
 }
 
 local function get_jdtls_paths()
@@ -118,9 +118,6 @@ local function enable_debugger(bufnr)
     require('jdtls').setup_dap({ hotcodereplace = 'auto' })
     require('jdtls.dap').setup_dap_main_class_configs()
 
-    local opts = { buffer = bufnr }
-    vim.keymap.set('n', '<leader>df', "<cmd>lua require('jdtls').test_class()<cr>", opts)
-    vim.keymap.set('n', '<leader>dn', "<cmd>lua require('jdtls').test_nearest_method()<cr>", opts)
 end
 
 local function jdtls_on_attach(client, bufnr)
@@ -215,11 +212,11 @@ local function jdtls_setup(event)
             referencesCodeLens = {
                 enabled = true,
             },
-            -- inlayHints = {
-            --   parameterNames = {
-            --     enabled = 'all' -- literals, all, none
-            --   }
-            -- },
+            inlayHints = {
+                parameterNames = {
+                    enabled = 'all' -- literals, all, none
+                }
+            },
             format = {
                 enabled = true,
                 -- settings = {
@@ -292,6 +289,11 @@ vim.api.nvim_create_autocmd('FileType', {
     callback = jdtls_setup,
 })
 
+
 return {
-    "mfussenegger/nvim-jdtls"
+    "mfussenegger/nvim-jdtls",
+    dependencies = {
+        "rcarriga/nvim-dap-ui",
+        "mfussenegger/nvim-dap"
+    }
 }

@@ -63,5 +63,6 @@
         "/home/oysandvik/.local/share/nvim/lazy/csharpls-extended-lsp.nvim/lua",
         "/home/oysandvik/.config/nvim/lua",
         "${3rd}/luv/library"
-    ]
+    ],
+    "workspace.checkThirdParty": false
 }
