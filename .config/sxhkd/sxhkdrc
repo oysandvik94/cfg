@@ -36,8 +36,8 @@ super + y
 	bspc node newest.marked.local -n newest.!automatic.local
 
 # focus or send to the given desktop
-super + {_,shift + }{1-9,0}
-	bspc {desktop -f,node -d} '^{1-9,10}' --follow
+super + {_,shift + }{j,k,l,semicolon,apostrophe,backslash}
+	bspc {desktop -f,node -d} '^{1,2,3,4,5,6}' --follow
 
 #
 # state/flags
