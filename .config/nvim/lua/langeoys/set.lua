@@ -3,6 +3,8 @@ vim.opt.nu = true
 vim.opt.relativenumber = true
 
 -- Indenting
+vim.opt.autoindent = true
+vim.opt.smartindent = true
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
@@ -31,7 +33,6 @@ vim.opt.isfname:append("@-@")
 
 -- Performance
 vim.opt.updatetime = 50
-
 
 vim.g.mapleader = " "
 

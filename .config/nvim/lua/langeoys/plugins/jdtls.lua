@@ -117,7 +117,6 @@ end
 local function enable_debugger(bufnr)
     require('jdtls').setup_dap({ hotcodereplace = 'auto' })
     require('jdtls.dap').setup_dap_main_class_configs()
-
 end
 
 local function jdtls_on_attach(client, bufnr)
@@ -150,12 +149,14 @@ local function jdtls_setup(event)
     if cache_vars.capabilities == nil then
         jdtls.extendedClientCapabilities.resolveAdditionalTextEditsSupport = true
 
+        -- Add lsp stuff to cmp
         local ok_cmp, cmp_lsp = pcall(require, 'cmp_nvim_lsp')
-        cache_vars.capabilities = vim.tbl_deep_extend(
-            'force',
-            vim.lsp.protocol.make_client_capabilities(),
-            ok_cmp and cmp_lsp.default_capabilities() or {}
-        )
+        cache_vars.capabilities = ok_cmp and cmp_lsp.default_capabilities()
+        -- cache_vars.capabilities = vim.tbl_deep_extend(
+        --     'force',
+        --     -- vim.lsp.protocol.make_client_capabilities(),
+        --     -- ok_cmp and cmp_lsp.default_capabilities() or {}
+        -- )
     end
 
     -- The command that starts the language server
@@ -222,46 +223,47 @@ local function jdtls_setup(event)
                 -- settings = {
                 --   profile = 'asdf'
                 -- },
-            }
-        },
-        signatureHelp = {
-            enabled = true,
-        },
-        completion = {
-            favoriteStaticMembers = {
-                'org.hamcrest.MatcherAssert.assertThat',
-                'org.hamcrest.Matchers.*',
-                'org.hamcrest.CoreMatchers.*',
-                'org.junit.jupiter.api.Assertions.*',
-                'java.util.Objects.requireNonNull',
-                'java.util.Objects.requireNonNullElse',
-                'org.mockito.Mockito.*',
             },
-            filteredTypes = {
-                "com.sun.*",
-                "io.micrometer.shaded.*",
-                "java.awt.*",
-                "jdk.*", "sun.*",
+            signatureHelp = {
+                enabled = true,
             },
-        },
-        contentProvider = {
-            preferred = 'fernflower',
-        },
-        extendedClientCapabilities = jdtls.extendedClientCapabilities,
-        sources = {
-            organizeImports = {
-                starThreshold = 9999,
-                staticStarThreshold = 9999,
-            }
-        },
-        codeGeneration = {
-            toString = {
-                template = '${object.className}{${member.name()}=${member.value}, ${otherMembers}}',
+            completion = {
+                favoriteStaticMembers = {
+                    'org.hamcrest.MatcherAssert.assertThat',
+                    'org.hamcrest.Matchers.*',
+                    'org.hamcrest.CoreMatchers.*',
+                    'org.junit.jupiter.api.Assertions.*',
+                    'java.util.Objects.requireNonNull',
+                    'java.util.Objects.requireNonNullElse',
+                    'org.mockito.Mockito.*',
+                },
+                filteredTypes = {
+                    "com.sun.*",
+                    "io.micrometer.shaded.*",
+                    "java.awt.*",
+                    "jdk.*", "sun.*",
+                },
+                guessMethodArguments = true
             },
-            hashCodeEquals = {
-                useJava7Objects = true,
+            contentProvider = {
+                preferred = 'fernflower',
             },
-            useBlocks = true,
+            extendedClientCapabilities = jdtls.extendedClientCapabilities,
+            sources = {
+                organizeImports = {
+                    starThreshold = 9999,
+                    staticStarThreshold = 9999,
+                }
+            },
+            codeGeneration = {
+                toString = {
+                    template = '${object.className}{${member.name()}=${member.value}, ${otherMembers}}',
+                },
+                hashCodeEquals = {
+                    useJava7Objects = true,
+                },
+                useBlocks = true,
+            },
         },
     }
 

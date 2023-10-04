@@ -9,7 +9,8 @@ return {
     config = function()
         require 'nvim-treesitter.configs'.setup {
             -- A list of parser names, or "all" (the five listed parsers should always be installed)
-            ensure_installed = { "vimdoc", "java", "javascript", "typescript", "c_sharp", "c", "lua", "vim", "vimdoc", "query", "html", "kotlin"},
+            ensure_installed = { "regex", "markdown_inline", "vimdoc", "java", "javascript", "typescript", "c_sharp", "c", "lua", "vim", "vimdoc",
+                "query", "html", "kotlin" },
 
             -- Install parsers synchronously (only applied to `ensure_installed`)
             sync_install = false,
@@ -71,7 +72,17 @@ return {
                     -- * selection_mode: eg 'v'
                     -- and should return true of false
                     include_surrounding_whitespace = true,
-                }
+                },
+                move = {
+                    enable = true,
+                    set_jumps = true,
+                    goto_next_start = {
+                        ["]a"] = "@parameter.inner",
+                    },
+                    goto_previous_start = {
+                        ["[a"] = "@parameter.inner",
+                    },
+                },
             }
         }
     end

@@ -97,16 +97,9 @@ return {
         end)
 
         vim.keymap.set('n', '<leader>fj', builtin.jumplist, {})
+        vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
 
         vim.keymap.set('n', '<leader>fd', dap_ui_picker, {})
-
-        -- open file_browser with the path of the current buffer
-        vim.api.nvim_set_keymap(
-            "n",
-            "<space>fb",
-            ":Telescope file_browser path=%:p:h select_buffer=true<CR>",
-            { noremap = true }
-        )
 
         require('telescope').setup({
             defaults = {

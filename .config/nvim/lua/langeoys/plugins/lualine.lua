@@ -1,5 +1,3 @@
-vim.o.shortmess = vim.o.shortmess .. "S"
-
 local function search_count()
     local res = vim.fn.searchcount({ maxcount = 999, timeout = 500 })
     if res.total > 0 then
@@ -60,7 +58,7 @@ return {
                 }, },
                 lualine_c = {},
                 lualine_x = { 'diagnostics' },
-                lualine_y = { { "active-marks", fmt = show_active_marks }, { "macro-recording", fmt = show_macro_recording }, { search_count, type = "lua_expr" } }, -- Tmp objects
+                lualine_y = { { "active-marks", fmt = show_active_marks }, { "macro-recording", fmt = show_macro_recording },  }, -- Tmp objects
                 lualine_z = { 'branch', 'diff' }                                                                        -- git
             },
             options = {
