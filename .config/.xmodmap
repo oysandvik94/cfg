@@ -1,7 +1,7 @@
 clear lock
 
 ! Caps-Lock 
-keycode 66 = Mode_switch ISO_Level3_Shift
+keycode 62 = Mode_switch ISO_Level3_Shift
 
 ! Norwegian characters æÆ øØ åÅ
 keycode 47 = semicolon colon oslash Oslash
