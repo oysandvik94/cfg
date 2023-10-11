@@ -1,29 +1,14 @@
-# Fig pre block. Keep at the top of this file.
-[[ -f "$HOME/.fig/shell/zshrc.pre.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.pre.zsh"
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
-# Set vim keybind
-set -o vi
-
-# Fix ssh agent
-# eval $(keychain --eval --agents ssh --quick --quiet)
-eval `keychain --eval --agents ssh id_rsa id_ed25519 --quiet` > /dev/null 2>&1
+# If you come from bash you might have to change your $PATH.
+# export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
-export XDG_CONFIG_HOME="$HOME/.config"
-export TERMINAL=kitty
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="powerlevel10k/powerlevel10k"
+ZSH_THEME="robbyrussell"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -85,42 +70,32 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+plugins=(
+    git
+    keychain
+    zsh-autosuggestions
+)
 
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
-# export MANPATH="/usr/local/man:$MANPATH"
-#export PATH=$PATH:$HOME/dotnet
-#export PATH="$PATH:$HOME/.dotnet/tools"
-#export DOTNET_ROOT="$HOME/dotnet"
-
-export PATH=$PATH:$HOME/.dotnet/tools
-export DOTNET_ROOT=$HOME/.dotnet
-export PATH=$PATH:$DOTNET_ROOT
-
+path+=("$HOME/.local/bin/scripts")
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
 
-azgemisoft() {
-	az account set --subscription "da6345d5-0cac-4a17-9f1c-367c360aa990"
-}
-
-azappex() {
-        az account set --subscription "9e3b3111-9fc5-450e-9dc2-ddd566287b5e"
-}
-
 # Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
+if [[ -n $SSH_CONNECTION ]]; then
+  export EDITOR='vim'
+else
+  export EDITOR='nvim'
+fi
 
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
+export PATH="$PATH:$HOME/.dotnet/tools"
+export DOTNET_ROOT="$HOME/.dotnet"
+export PATH="$PATH:$DOTNET_ROOT"
+export W3M_DIR="$HOME/.local/state/w3m"
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
@@ -128,47 +103,10 @@ azappex() {
 # For a full list of active aliases, run `alias`.
 #
 # Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
-
-alias cdgem="cd /home/ysteinlangelandsandvik/dev/gemisoft/GemisoftV2"
-alias cdnet="cd /home/ysteinlangelandsandvik/dev/netreg/egersund-net-netreg2"
-alias cdaxos="cd /home/ysteinlangelandsandvik/dev/axos/axos"
 alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
-alias fzfd='cd $(find . -type d -print | fzf)'
 alias fztmux='~/.local/bin/scripts/tmux-sessionizer'
-
-axosDbMigration() {
-    axospath="/home/ysteinlangelandsandvik/dev/axos/axos/backend/api"
-    dotnet ef migrations add "$1" --project $axospath/Axos.Db --startup-project $axospath/Axos.WebApi --context AxosDbContext -- RuntimeConfig:IsMigrationMode=true
-}
-
-axosDbUpdate() {
-    axospath="/home/ysteinlangelandsandvik/dev/axos/axos/backend/api"
-    dotnet ef database update --project $axospath/Axos.Db --startup-project $axospath/Axos.WebApi --context AxosDbContext -- RuntimeConfig:IsMigrationMode=true
-}
-
-axosDbRevert() {
-    axospath="/home/ysteinlangelandsandvik/dev/axos/axos/backend/api"
-    dotnet ef migrations remove --project $axospath/Axos.Db --startup-project $axospath/Axos.WebApi --context AxosDbContext -- RuntimeConfig:IsMigrationMode=true
-}
-
-if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
-        source /etc/profile.d/vte.sh
-fi
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-export PATH="$PATH:/home/ysteinlangelandsandvik/.cargo/bin"
-
-
-# Fig post block. Keep at the bottom of this file.
-[[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.post.zsh"
+alias w3m='w3m -config ~/.config/w3m/config'
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="$HOME/.sdkman"
-[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+SDKMAN_DIR="/home/oysandvik/.sdkman" 
+[[ -s "/home/oysandvik/.sdkman/bin/sdkman-init.sh" ]] && source "/home/oysandvik/.sdkman/bin/sdkman-init.sh"

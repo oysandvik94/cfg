@@ -1,7 +1,5 @@
 #! /bin/bash
 
-export SXHKD_SHELL='/usr/bin/sh'
-
 INTERNAL_MONITOR="eDP-1"
 # Finding the last connected monitor for single monitor setup
 EXTERNAL_MONITOR="$(xrandr | grep " connected " | awk '{ print $1 }' | tail -n 1)"
