@@ -1,3 +1,46 @@
+-- extract to global util
+local function tableContains(table, value)
+    for i = 1, #table do
+        if (table[i] == value) then
+            return true
+        end
+    end
+    return false
+end
+
+local menu = {
+    buffer = "[buf]",
+    nvim_lsp = "[LSP]",
+    nvim_lua = "[api]",
+    path = "[path]",
+    luasnip = "[snip]",
+    copilot = "[copilot]",
+    ['vim-dadbod-completion'] = '[DB]',
+}
+local parameterizedTypes = {
+    2, 3, 4
+}
+local function formatLspFunctions(entry, vim_item)
+    local source = entry.source.name
+    local item = entry:get_completion_item()
+
+    if entry.source.source.client.name ~= "jdtls" then
+        vim_item.menu = menu[source]
+        return vim_item
+    end
+    if tableContains(parameterizedTypes, item.kind) then
+        vim_item.abbr = item.label ..
+            item.labelDetails.detail
+        if item.kind ~= 4 then
+            vim_item.menu = item.labelDetails.description
+        else
+            vim_item.menu = menu[source]
+        end
+    end
+
+    return vim_item
+end
+
 return {
     "hrsh7th/nvim-cmp",
     event = "InsertEnter",
@@ -10,7 +53,8 @@ return {
         { 'L3MON4D3/LuaSnip' }, -- Required
         'saadparwaiz1/cmp_luasnip',
         "rafamadriz/friendly-snippets",
-        { 'onsails/lspkind.nvim' }
+        { 'onsails/lspkind.nvim' },
+        { 'ray-x/lsp_signature.nvim' }
     },
     config = function()
         local cmp = require("cmp")
@@ -44,15 +88,11 @@ return {
             ["<C-y>"] = cmp.mapping.confirm({ select = true, behavior = cmp.ConfirmBehavior.Insert })
         }
 
-        local menu = {
-            buffer = "[buf]",
-            nvim_lsp = "[LSP]",
-            nvim_lua = "[api]",
-            path = "[path]",
-            luasnip = "[snip]",
-            copilot = "[copilot]",
-        }
         vim.opt.pumheight = 10
+        -- local log = require('plenary.log').new {
+        --     plugin = "cmp",
+        --     level = "debug"
+        -- }
         ---@diagnostic disable-next-line: missing-fields
         cmp.setup({
             ---@diagnostic disable-next-line: missing-fields
@@ -72,12 +112,12 @@ return {
                 entries = { name = 'custom', selection_order = 'near_cursor' }
             },
             sources = {
-                { name = "copilot", },
                 { name = 'nvim_lsp', max_item_count = 20 },
-                { name = 'nvim_lua' },
+                { name = 'nvim_luA' },
                 { name = 'luasnip', },
                 { name = "buffer",   keyword_length = 5 },
-                { name = 'path' }
+                { name = 'path' },
+                -- { name = "copilot" }
             },
             mapping = keys,
             ---@diagnostic disable-next-line: missing-fields
@@ -88,18 +128,13 @@ return {
                     ellipsis_char = '...',
                     symbol_map = { Copilot = "" },
                     before = function(entry, vim_item)
-                        local item = entry:get_completion_item()
-
                         local source = entry.source.name
-                        if source ~= "nvim_lsp" then
-                            vim_item.menu = menu[source]
+                        if source == "nvim_lsp" then
+                            vim_item = formatLspFunctions(entry, vim_item)
+                            return vim_item
                         end
 
-                        if item.kind == 2 then
-                            vim_item.abbr = item.label ..
-                                item.labelDetails.detail
-                            vim_item.menu = item.labelDetails.description
-                        end
+                        vim_item.menu = menu[source]
 
                         return vim_item
                     end
@@ -176,5 +211,24 @@ return {
                 }
             })
         )
+
+        require 'lsp_signature'.setup({
+            bind = true,  -- This is mandatory, otherwise border config won't get registered.
+            handler_opts = {
+                border = "rounded"
+            },
+             hint_enable = true,
+              hint_inline = function() return true end,
+               hint_prefix = "",
+               select_signature_key = "A-s"
+        })
+
+        -- set highlight LspSignatureActiveParameter
+        -- vim.api.nvim_set_hl(0, "LspSignatureActiveParameter", { fg = "#6CC644" })
+        vim.api.nvim_set_hl(0, 'LspSignatureActiveParameter', { ctermbg = 0, fg = '#31748F', bg = '#EBBCBA' })
+
+        vim.keymap.set({ 'n' }, '<Leader>k', function()
+            vim.lsp.buf.signature_help()
+        end, { silent = true, noremap = true, desc = 'toggle signature' })
     end,
 }

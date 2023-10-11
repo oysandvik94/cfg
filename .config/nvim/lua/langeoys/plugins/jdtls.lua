@@ -86,10 +86,10 @@ local function get_jdtls_paths()
         -- https://github.com/eclipse/eclipse.jdt.ls/wiki/Running-the-JAVA-LS-server-from-the-command-line#initialize-request
         --
         -- This example assume you are using sdkman: https://sdkman.io
-        -- {
-        --   name = 'JavaSE-19',
-        --   path = vim.fn.expand('/usr/lib/jvm/java-19-openjdk-amd64'),
-        -- },
+        {
+          name = 'JavaSE-17',
+          path = vim.fn.expand('/usr/lib/jvm/java-17-openjdk-amd64'),
+        },
         -- {
         --   name = 'JavaSE-18',
         --   path = vim.fn.expand('~/.sdkman/candidates/java/18.0.2-amzn'),
@@ -219,10 +219,11 @@ local function jdtls_setup(event)
                 }
             },
             format = {
-                enabled = true,
-                -- settings = {
-                --   profile = 'asdf'
-                -- },
+              enabled = true,
+              settings = {
+                url = vim.fn.stdpath "config" .. "/lang-servers/intellij-java-google-style.xml",
+                profile = "GoogleStyle",
+              },
             },
             signatureHelp = {
                 enabled = true,
