@@ -21,15 +21,11 @@ vim.keymap.set("x", "p", [["_dP]])
 vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])
 vim.keymap.set("n", "<leader>Y", [["+Y]])
 
--- Delete without putting in to register
-vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]])
-
--- Quickfix navigation
-vim.keymap.set("n", "<leader>qk", "<cmd>cnext<CR>zz")
-vim.keymap.set("n", "<leader>qj", "<cmd>cprev<CR>zz")
-
--- Search and replace all hits
-vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
+-- Back and forths
+vim.keymap.set("n", "]q", "<cmd>cnext<CR>zz")
+vim.keymap.set("n", "[q", "<cmd>cprev<CR>zz")
+vim.keymap.set("n", "]t", "<cmd>tabnext<CR>")
+vim.keymap.set("n", "[t", "<cmd>tabprev<CR>")
 
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>')
 

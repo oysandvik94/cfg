@@ -1,4 +1,5 @@
 return {
+    enabled = true,
     "folke/noice.nvim",
     event = "VeryLazy",
     opts = {
@@ -6,6 +7,12 @@ return {
     },
     config = function()
         require("noice").setup({
+            cmdline = {
+                enabled = true
+            },
+            messages = {
+                enabled = true
+            },
             lsp = {
                 hover = { enabled = false },
                 signature = { enabled = false },
@@ -15,7 +22,7 @@ return {
             -- you can enable a preset for easier configuration
             presets = {
                 bottom_search = true,         -- use a classic bottom cmdline for search
-                command_palette = false,       -- position the cmdline and popupmenu together
+                command_palette = false,      -- position the cmdline and popupmenu together
                 long_message_to_split = true, -- long messages will be sent to a split
                 inc_rename = false,           -- enables an input dialog for inc-rename.nvim
             },
@@ -23,19 +30,16 @@ return {
                 {
                     filter = {
                         event = "msg_show",
-                        kind = "",
-                        find = "before"
+                        any = {
+                            { find = "%d+L, %d+B" },
+                            { find = "; after #%d+" },
+                            { find = "; before #%d+" },
+                        },
                     },
-                    opts = { skip = true },
-                },{
-                    filter = {
-                        event = "msg_show",
-                        kind = "",
-                        find = "written"
-                    },
-                    opts = { skip = true },
+                    view = "mini",
                 },
             },
+            -- },
         })
     end,
     dependencies = {

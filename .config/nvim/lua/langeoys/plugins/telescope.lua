@@ -100,14 +100,16 @@ return {
         vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
 
         vim.keymap.set('n', '<leader>fd', dap_ui_picker, {})
+        vim.keymap.set('n', '<leader>fl', builtin.resume, {})
 
         require('telescope').setup({
             defaults = {
-                layout_strategy = 'horizontal',
-                layout_config = {
-                    anchor = "N",
-                    width = 99
-                },
+                theme = "dropdown",
+                -- layout_strategy = 'center',
+                -- layout_config = {
+                --     anchor = "N",
+                --     width = 99
+                -- },
                 path_display = {
                     tail = true
                 },

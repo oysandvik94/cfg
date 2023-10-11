@@ -87,5 +87,27 @@ return {
                 port = 5005,
             },
         }
+
+        dap.adapters.codelldb = {
+            type = 'server',
+            port = "${port}",
+            executable = {
+                command = vim.fn.stdpath('data') .. '/mason/bin/codelldb',
+                args = { "--port", "${port}" },
+            }
+        }
+        dap.configurations.c = {
+            {
+                name = 'Launch',
+                type = 'codelldb',
+                request = 'launch',
+                program = function() -- Ask the user what executable wants to debug
+                    return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/bin/program', 'file')
+                end,
+                cwd = '${workspaceFolder}',
+                stopOnEntry = false,
+                args = {},
+            },
+        }
     end,
 }

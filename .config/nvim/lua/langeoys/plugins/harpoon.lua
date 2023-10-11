@@ -23,10 +23,10 @@ return {
         vim.keymap.set("n", "<C-e>", ui.toggle_quick_menu, { desc = "Toggle harpoon window" })
         vim.keymap.set("n", "<C-t>", cmd.toggle_quick_menu, { desc = "Toggle harpoon terminal window" })
 
-        vim.keymap.set("n", "<A-j>", function() ui.nav_file(1) end, { desc = "Go to first harpooned file" })
-        vim.keymap.set("n", "<A-k>", function() ui.nav_file(2) end, { desc = "Go to second harpooned file" })
-        vim.keymap.set("n", "<A-l>", function() ui.nav_file(3) end, { desc = "Go to third harpooned file" })
-        vim.keymap.set("n", "<A-;>", function() ui.nav_file(4) end, { desc = "Go to fourth harpooned file" })
+        vim.keymap.set("n", "<A-1>", function() ui.nav_file(1) end, { desc = "Go to first harpooned file" })
+        vim.keymap.set("n", "<A-2>", function() ui.nav_file(2) end, { desc = "Go to second harpooned file" })
+        vim.keymap.set("n", "<A-3>", function() ui.nav_file(3) end, { desc = "Go to third harpooned file" })
+        vim.keymap.set("n", "<A-4>", function() ui.nav_file(4) end, { desc = "Go to fourth harpooned file" })
 
         vim.keymap.set("n", "<A-J>", function() tmux.sendCommand(2, 1) end,
             { desc = "Send first harpoon command to tmux window 2" })
