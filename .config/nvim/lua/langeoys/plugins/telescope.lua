@@ -18,8 +18,7 @@ local dap_ui_picker = function(opts)
             actions.select_default:replace(function()
                 actions.close(bufnr)
                 local selection = action_state.get_selected_entry()
-                dap_ui.float_element(selection[1], { enter = true})
-
+                dap_ui.float_element(selection[1], { enter = true })
             end)
 
             return true
@@ -104,17 +103,22 @@ return {
 
         require('telescope').setup({
             defaults = {
-                theme = "dropdown",
-                -- layout_strategy = 'center',
-                -- layout_config = {
-                --     anchor = "N",
-                --     width = 99
-                -- },
-                path_display = {
-                    tail = true
+                sorting_strategy = "ascending",
+                layout_strategy = "center",
+                border = false, -- kanskje
+                prompt_title = "",
+                results_title = "",
+                preview_title = "",
+                prompt_prefix = "> ",
+                selection_caret = "> ",
+                entry_prefix = "",
+                multi_icon = "",
+                color_devicons = true,
+                layout_config = {
+                    anchor = "N",
+                    width = 99
                 },
-                dynamic_preview_title = true,
-            },
+            }
         })
     end,
 }
