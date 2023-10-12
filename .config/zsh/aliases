@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+alias fztmux='~/.local/bin/scripts/tmux-sessionizer'
+alias w3m='w3m -config ~/.config/w3m/config'
