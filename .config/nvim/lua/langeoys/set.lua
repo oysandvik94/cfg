@@ -61,3 +61,8 @@ vim.cmd([[autocmd FocusGained * checktime]])
 -- Spelling
 vim.cmd([[setlocal spell]])
 vim.opt.spelllang = "en_gb"
+
+-- Remove auto comment lines
+vim.cmd('autocmd BufEnter * set formatoptions-=cro')
+vim.cmd('autocmd BufEnter * setlocal formatoptions-=cro')
+
