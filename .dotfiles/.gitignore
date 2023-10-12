@@ -1,1 +1,4 @@
-/home/ysteinlangelandsandvik/.config/fish/local_variables.fish
+$ZDOTDIR/.p10k.zsh
+$ZDOTDIR/.zhistory
+$ZDOTDIR/.zcompdump
+$ZDOTDIR/.zsh_plugins/
