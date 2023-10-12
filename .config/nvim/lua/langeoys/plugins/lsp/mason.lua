@@ -11,7 +11,6 @@ return {
 
         mason_lspconfig.setup({
             ensure_installed = {
-                "tsserver",
                 "eslint",
                 "omnisharp",
                 "lua_ls",
