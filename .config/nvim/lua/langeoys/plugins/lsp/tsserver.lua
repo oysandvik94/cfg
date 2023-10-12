@@ -4,6 +4,7 @@ return {
     opts = {},
     config = function()
         require("typescript-tools").setup {
+            complete_function_calls = true,
             on_attach = function()
                 vim.keymap.set("n", "<leader>lo", [[
                 <cmd>TSToolsAddMissingImports<cr>
