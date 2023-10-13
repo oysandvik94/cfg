@@ -21,6 +21,8 @@ source /usr/share/doc/fzf/examples/completion.zsh
 autoload -U compinit; compinit
 _comp_options+=(globdots) # With hidden files
 source $ZDOTDIR/completion.zsh
+source <(ng completion script)
+
 
 # Directory stack
 setopt AUTO_PUSHD           # Push the current directory visited on the stack.
@@ -29,6 +31,15 @@ setopt PUSHD_SILENT         # Do not print the directory stack after pushd or po
 
 alias d='dirs -v'
 for index ({1..9}) alias "$index"="cd +${index}"; unset index;
+
+dotc() {
+    if [ $# -eq 3 ]; then
+    dotfiles commit -m "$1($2): $3"
+    else
+        echo "You shall not pass! The function requires exactly three parameters."
+    fi
+}
+
 
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
