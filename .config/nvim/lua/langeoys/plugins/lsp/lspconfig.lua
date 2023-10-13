@@ -32,10 +32,7 @@ return {
                 vim.keymap.set("n", "<leader>lc", function() vim.lsp.buf.code_action() end, opts)
                 vim.keymap.set("n", "<leader>lr", function() vim.lsp.buf.rename() end, opts)
 
-                local ls = require("luasnip")
-                vim.keymap.set({ "i", "s" }, "<C-f>", function() ls.jump(1) end, { silent = true })
-                vim.keymap.set({ "i", "s" }, "<C-b>", function() ls.jump(-1) end, { silent = true })
-
+              
                 -- LSP Telescope bindings
                 local builtin = require('telescope.builtin')
                 vim.keymap.set('n', '<leader>gr', function()

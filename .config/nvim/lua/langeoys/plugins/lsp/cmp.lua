@@ -177,14 +177,14 @@ return {
         )
 
         require 'lsp_signature'.setup({
-            bind = true,  -- This is mandatory, otherwise border config won't get registered.
+            bind = true, -- This is mandatory, otherwise border config won't get registered.
             handler_opts = {
                 border = "rounded"
             },
-             hint_enable = true,
-              hint_inline = function() return true end,
-               hint_prefix = "",
-               select_signature_key = "A-s"
+            hint_enable = true,
+            hint_inline = function() return false end,
+            hint_prefix = "",
+            select_signature_key = "A-s"
         })
 
         -- set highlight LspSignatureActiveParameter
