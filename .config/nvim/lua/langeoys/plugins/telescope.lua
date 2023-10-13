@@ -101,6 +101,7 @@ return {
         vim.keymap.set('n', '<leader>fd', dap_ui_picker, {})
         vim.keymap.set('n', '<leader>fl', builtin.resume, {})
 
+        local actions = require("telescope.actions")
         require('telescope').setup({
             defaults = {
                 sorting_strategy = "ascending",
@@ -117,6 +118,11 @@ return {
                 layout_config = {
                     anchor = "N",
                     width = 99
+                },
+                mappings = {
+                    i = {
+                        ["<C-e>"] = actions.close
+                    },
                 },
             }
         })
