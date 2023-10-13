@@ -2,6 +2,8 @@ return {
     "neovim/nvim-lspconfig",
     event = { "BufReadPre", "BufNewFile" },
     dependencies = {
+        "williamboman/mason.nvim",
+        "williamboman/mason-lspconfig.nvim",
         "hrsh7th/nvim-cmp",
         "folke/neodev.nvim",
     },
@@ -103,7 +105,23 @@ return {
             end
         }
 
-        require('mason-lspconfig').setup_handlers(handlers)
+        local mason = require("mason").setup()
+        local mason_lspconfig = require("mason-lspconfig")
+        mason_lspconfig.setup({
+            ensure_installed = {
+                "eslint",
+                "omnisharp",
+                "lua_ls",
+                "jdtls",
+                "bashls",
+                "kotlin_language_server",
+                "pyright",
+                "clangd"
+            },
+
+            automatic_installation = true
+        })
+        mason_lspconfig.setup_handlers(handlers)
 
         -- Configure diagnostics
         local signs = { Error = "", Warn = "", Hint = "󰌵", Info = "" }
