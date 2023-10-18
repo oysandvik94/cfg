@@ -21,7 +21,8 @@ source /usr/share/doc/fzf/examples/completion.zsh
 autoload -U compinit; compinit
 _comp_options+=(globdots) # With hidden files
 source $ZDOTDIR/completion.zsh
-source <(ng completion script)
+
+source $ZDOTDIR/ssh-agent.zsh
 
 
 # Directory stack
@@ -39,8 +40,6 @@ dotc() {
         echo "You shall not pass! The function requires exactly three parameters."
     fi
 }
-
-
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 SDKMAN_DIR="/home/oysandvik/.sdkman" 
