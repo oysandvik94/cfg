@@ -2,23 +2,29 @@ return {
     'stevearc/conform.nvim',
     opts = {},
     config = function()
+        require("conform").formatters.memes = {
+            command = "google-java-format",
+            args = {  "-a", "-" },
+        }
+
         require("conform").setup({
             formatters_by_ft = {
-                lua = { "stylua" },
+                lua             = { "stylua" },
                 -- Conform will run multiple formatters sequentially
-                python = { "isort", "black" },
+                python          = { "isort", "black" },
                 -- Use a sub-list to run only the first available formatter
-                java = { "google-java-format" },
-                javascript = { "prettier" } ,
-                typescript   = { "prettier" } ,
-                javascriptreact = { "prettier" } ,
-                typescriptreact   = { "prettier" } ,
-                css   = { "prettier" } ,
-                xml = { "xmlformat" },
-                html = { "prettier"},
-                markdown = { "prettier"}
+                java            = { "memes" },
+                javascript      = { "prettier" },
+                typescript      = { "prettier" },
+                javascriptreact = { "prettier" },
+                typescriptreact = { "prettier" },
+                css             = { "prettier" },
+                xml             = { "xmlformat" },
+                html            = { "prettier" },
+                markdown        = { "prettier" }
             },
         })
+
 
         vim.api.nvim_create_user_command("Format", function(args)
             local range = nil
