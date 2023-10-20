@@ -146,6 +146,7 @@ return {
         local actions = require("telescope.actions")
         require('telescope').setup({
             defaults = {
+                path_display = { "smart" },
                 sorting_strategy = "ascending",
                 layout_strategy = "center",
                 border = false, -- kanskje
