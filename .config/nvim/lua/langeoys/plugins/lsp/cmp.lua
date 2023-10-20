@@ -1,4 +1,47 @@
--- extract to global util
+local function deprio(kind)
+    return function(e1, e2)
+        if e1:get_kind() == kind then
+            return false
+        end
+        if e2:get_kind() == kind then
+            return true
+        end
+    end
+end
+
+-- Put methods from Object class in java at bottom, so that more specific methods are prioritized
+local function downpri_object_methods(entry1, entry2)
+    local e1 = entry1.completion_item
+    local e2 = entry2.completion_item
+
+    local client = nil
+    if entry1.source.source and entry1.source.source.client then
+        client = entry1.source.source.client.name
+    end
+
+    if client ~= nil and client == 'jdtls' then
+        if e1.detail and string.match(e1.detail, "Object.") then
+            return false
+        end
+        if e2.detail and string.match(e2.detail, "Object.") then
+            return true
+        end
+    end
+end
+
+local function under(entry1, entry2)
+    local _, entry1_under = entry1.completion_item.label:find "^_+"
+    local _, entry2_under = entry2.completion_item.label:find "^_+"
+    entry1_under = entry1_under or 0
+    entry2_under = entry2_under or 0
+    if entry1_under > entry2_under then
+        return false
+    elseif entry1_under < entry2_under then
+        return true
+    end
+end
+
+
 local function tableContains(table, value)
     for i = 1, #table do
         if (table[i] == value) then
@@ -85,8 +128,28 @@ return {
             ["<C-u>"] = cmp.mapping.scroll_docs(4),
             ["<C-Space>"] = cmp.mapping.complete(), -- show completion suggestions
             ["<C-e>"] = cmp.mapping.abort(),        -- close completion window
-            ["<C-y>"] = cmp.mapping.confirm({ select = true, behavior = cmp.ConfirmBehavior.Insert })
+            ["<C-y>"] = cmp.mapping.confirm({ select = true, behavior = cmp.ConfirmBehavior.Insert }),
+            ["<C-h>"] = function()
+            end
         }
+
+        for i = 1, 10, 1 do
+            local key = table.concat({ "<M-", (i < 10 and i or 0), ">" })
+            keys[key] = function(fallback)
+                if cmp.visible() then
+                    -- need this to enter the menu
+                    if cmp.get_selected_entry() == nil then
+                        cmp.select_next_item({behavior = cmp.SelectBehavior.Insert})
+                    end
+
+                    cmp.select_next_item({ count = i - 1, behavior = cmp.SelectBehavior.Insert })
+                    cmp.confirm({ select = true, behavior = cmp.ConfirmBehavior.Insert })
+                end
+
+                fallback()
+            end
+        end
+
 
         vim.opt.pumheight = 10
         -- local log = require('plenary.log').new {
@@ -94,10 +157,25 @@ return {
         --     level = "debug"
         -- }
         ---@diagnostic disable-next-line: missing-fields
+        local types = require('cmp.types')
         cmp.setup({
             ---@diagnostic disable-next-line: missing-fields
             completion = {
                 completeopt = "menu,menuone,preview,noselect",
+            },
+            sorting = {
+                comparators = {
+                    -- deprio(types.lsp.CompletionItemKind.Snippet),
+                    cmp.config.compare.offset,
+                    cmp.config.compare.exact,
+                    cmp.config.compare.score,
+                    under,
+                    downpri_object_methods,
+
+                    cmp.config.compare.kind,
+                    cmp.config.compare.sort_text,
+                    cmp.config.compare.length,
+                    cmp.config.compare.order, },
             },
             snippet = {
                 expand = function(args)

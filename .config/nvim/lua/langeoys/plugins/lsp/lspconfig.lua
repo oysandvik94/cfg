@@ -32,7 +32,7 @@ return {
                 vim.keymap.set("n", "<leader>lc", function() vim.lsp.buf.code_action() end, opts)
                 vim.keymap.set("n", "<leader>lr", function() vim.lsp.buf.rename() end, opts)
 
-              
+
                 -- LSP Telescope bindings
                 local builtin = require('telescope.builtin')
                 vim.keymap.set('n', '<leader>gr', function()
@@ -44,6 +44,7 @@ return {
                 -- end, opts)
             end
         })
+
 
         local capabilities = cmp_nvim_lsp.default_capabilities()
         local handlers = {

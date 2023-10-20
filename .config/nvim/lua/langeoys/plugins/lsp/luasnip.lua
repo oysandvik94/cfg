@@ -15,7 +15,7 @@ return {
             },
 
         })
-        vim.keymap.set({ "i", "s" }, "<C-k>", function() ls.expand_or_jump() end, { silent = true })
+        vim.keymap.set({ "i", "s" }, "<C-f>", function() ls.jump(1) end, { silent = true })
         vim.keymap.set({ "i", "s" }, "<C-b>", function() ls.jump(-1) end, { silent = true })
         vim.keymap.set({ "i", "s" }, "<C-l>", function()
             if ls.choice_active() then
