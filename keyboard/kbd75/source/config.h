@@ -14,5 +14,5 @@
 // Custom
 // default but used in macros
 #undef TAPPING_TERM
-#define TAPPING_TERM 180
+#define TAPPING_TERM 160
 
