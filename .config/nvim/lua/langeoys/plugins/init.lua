@@ -1,4 +1,3 @@
-        vim.g.copilot_filetypes = {markdown = true}
 return {
     { 'rose-pine/neovim', name = 'rose-pine' },
     'nvim-lua/plenary.nvim',

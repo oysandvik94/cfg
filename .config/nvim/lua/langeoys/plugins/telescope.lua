@@ -1,3 +1,56 @@
+local file_name_formatter = function(opts)
+    local devicons = require("nvim-web-devicons")
+
+    local entry_display = require("telescope.pickers.entry_display")
+    opts = opts or {}
+    local default_icons, _ = devicons.get_icon("file", "", { default = true })
+
+    local displayer = entry_display.create({
+        separator = " ",
+        items = {
+            { width = vim.fn.strwidth(default_icons) },
+            { remaining = true },
+            { remaining = true },
+        },
+    })
+
+    local make_display = function(entry)
+        vim.cmd('highlight! @ibl.indent.char.2 guibg=NONE guifg=#E0DEF4')
+        vim.cmd('highlight! @ibl.indent.char.1 guibg=NONE guifg=#6e6a86')
+        vim.cmd('highlight! TelescopeSelection guibg=#403d52 guifg=#6e6a86')
+        return displayer({
+            { entry.devicons,   entry.devicons_highlight },
+            {entry.file_name, "@ibl.indent.char.2" },
+            { entry.grayed_out, "@ibl.indent.char.1" },
+        })
+    end
+
+    return function(entry)
+        local grayed_out
+
+        if entry:find("/") == nil then
+            grayed_out = vim.fn.fnamemodify(entry, ":p:h") -- Path from root
+        else
+            grayed_out = entry:gsub("/[^/]*$", "")         -- Path without filename
+        end
+
+        local file_name = vim.fn.fnamemodify(entry, ":p:t")
+
+        local icons, highlight = devicons.get_icon(entry, string.match(entry, "%a+$"), { default = true })
+
+        return {
+            valid = true,
+            value = entry,
+            ordinal = entry,
+            display = make_display,
+            devicons = icons,
+            devicons_highlight = highlight,
+            file_name = file_name,
+            grayed_out = grayed_out,
+        }
+    end
+end
+
 local theme_picker = function()
     local pickers = require("telescope.pickers")
     local finders = require("telescope.finders")
@@ -81,16 +134,6 @@ local function getVisualSelection()
     end
 end
 
-local function projectFiles()
-    local opts = {} -- define here if you want to define something
-    vim.fn.system('git rev-parse --is-inside-work-tree')
-    if vim.v.shell_error == 0 then
-        require "telescope.builtin".git_files(opts)
-    else
-        require "telescope.builtin".find_files(opts)
-    end
-end
-
 return {
     'nvim-telescope/telescope.nvim',
     dependencies = {
@@ -101,23 +144,29 @@ return {
     config = function()
         local telescope = require('telescope')
         local builtin = require('telescope.builtin')
-        local opts = { noremap = true, silent = true }
+        local keymap_opts = { noremap = true, silent = true }
 
         -- Extensions
         telescope.load_extension('fzy_native')
 
-        -- Git files er litt irriterende på nye filer som ikke er added på git
-        vim.keymap.set('n', '<leader>ff', function()
-            builtin.find_files(opts)
-        end, opts)
-        -- vim.keymap.set('n', '<leader>ff', function()
-        --     projectFiles()
-        -- end, opts)
+        vim.keymap.set("n", "<leader>ff", function()
+            local opts = {
+                entry_maker = file_name_formatter(),
+                show_untracked = true,
+            }
+
+                builtin.find_files(opts)
+            -- local succ = pcall(builtin.git_files, opts)
+            --
+            -- if not succ then
+            -- end
+        end, { desc = "Fuzzy find files in project" })
+
         vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
         vim.keymap.set('v', '<leader>fg', function()
             local text = getVisualSelection()
             builtin.live_grep({ default_text = text })
-        end, opts)
+        end, keymap_opts)
 
         vim.keymap.set('n', '<leader>fsd', builtin.lsp_document_symbols, {})
         vim.keymap.set('n', '<leader>fsg', builtin.lsp_dynamic_workspace_symbols, {})
