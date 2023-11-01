@@ -2,7 +2,7 @@
 
 winclass="$(xdotool search --class chatgpt)";
 if [ -z "$winclass" ]; then
-    kitty --class chatgpt -e nvim -c ":GpChatNew"&
+    alacritty --class chatgpt -e nvim -c ":GpChatNew"&
 else
     if [ ! -f /tmp/chatgpt ]; then
         touch /tmp/chatgpt && xdo hide "$winclass"

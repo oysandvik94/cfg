@@ -6,7 +6,7 @@
 
 # terminal emulator
 super + Return
-	kitty --single-instance
+	alacritty
 
 # program launcher
 super + d
