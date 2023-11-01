@@ -12,7 +12,7 @@ while sleep 2; do
         # State has changed
         prev_state="$state"
 
-        bspc wm -r
+        i3-msg restart
     fi
 done
 
