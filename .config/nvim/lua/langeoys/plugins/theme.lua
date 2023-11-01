@@ -10,6 +10,12 @@ return {
             vim.cmd('colorscheme rose-pine')
         end,
     },
-    { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
-    { "rebelot/kanagawa.nvim"}
+    { "catppuccin/nvim",      name = "catppuccin", priority = 1000 },
+    { "rebelot/kanagawa.nvim" },
+    {
+        "folke/tokyonight.nvim",
+        lazy = false,
+        priority = 1000,
+        opts = {},
+    }
 }

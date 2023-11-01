@@ -129,7 +129,7 @@ return {
         end
         local config = {
             -- Using lsp_lines.nvim
-            virtual_text = false,
+            virtual_text = true,
             -- show signs
             signs = {
                 active = signs,

@@ -16,9 +16,9 @@ return {
                 showcmd = true             -- disables the command in the last line of the screen
             },
             twilight = { enabled = true }, -- enable to start Twilight when zen mode opens
-            kitty = {
-                enabled = true,
-                font = "+4", -- font size increment
+            alacritty = {
+                enabled = false,
+                font = "20", -- font size
             },
         },
     }

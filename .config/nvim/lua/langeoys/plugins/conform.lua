@@ -4,7 +4,7 @@ return {
     config = function()
         require("conform").formatters.memes = {
             command = "google-java-format",
-            args = {  "-a", "-" },
+            args = { "-a", "-" },
         }
 
         require("conform").setup({
@@ -21,7 +21,9 @@ return {
                 css             = { "prettier" },
                 xml             = { "xmlformat" },
                 html            = { "prettier" },
-                markdown        = { "prettier" }
+                markdown        = { "prettier" },
+                bash            = { "shfmt" },
+                sh            = { "shfmt" }
             },
         })
 
