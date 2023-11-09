@@ -45,6 +45,8 @@ return {
     'nvim-lualine/lualine.nvim',
     dependencies = {
         { 'nvim-tree/nvim-web-devicons', lazy = true },
+        { "Shatur/neovim-ayu" }
+
 
     },
     config = function()
@@ -58,12 +60,14 @@ return {
                 }, },
                 lualine_c = {},
                 lualine_x = { 'diagnostics' },
-                lualine_y = { { "active-marks", fmt = show_active_marks }, { "macro-recording", fmt = show_macro_recording },  }, -- Tmp objects
-                lualine_z = { 'branch', 'diff' }                                                                        -- git
+                lualine_y = { { "active-marks", fmt = show_active_marks },
+                    { "macro-recording", fmt = show_macro_recording }, },                                                         -- Tmp objects
+                lualine_z = { 'branch', 'diff' }                                                                                  -- git
             },
             options = {
-                component_separators = { left = '', right = ''},
-    section_separators = { left = '', right = ''},
+                theme = 'ayu_mirage',
+                component_separators = { left = '', right = '' },
+                section_separators = { left = '', right = '' },
                 globalstatus = true
             }
         })

@@ -36,5 +36,15 @@ vim.keymap.set("n", "<leader>v", "<cmd>vsplit<CR>")
 -- Insert semicolon
 vim.keymap.set("i", "<C-]>", "<esc>A;<esc>", { noremap = true, silent = true })
 
--- Spellcheck
-vim.keymap.set("i", "<C-s>", "<c-g>u<Esc>[s1z=`]a<c-g>u")
+vim.keymap.set("n", "<leader><leader>x", "<cmd>w<CR><cmd> so %<CR>", { silent = true })
+
+-- color
+vim.api.nvim_create_user_command('PrintColor', function()
+    local fileName = vim.fn.stdpath('data') .. "/colorscheme"
+    local file = io.open(fileName, "r")
+    if file then
+        local color = file:read()
+        print(color)
+        file:close()
+    end
+end, { nargs = 0 })

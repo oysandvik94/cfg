@@ -134,7 +134,7 @@ return {
             signs = {
                 active = signs,
             },
-            update_in_insert = true,
+            update_in_insert = false,
             underline = true,
             severity_sort = true,
             float = {

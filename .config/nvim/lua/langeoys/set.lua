@@ -1,6 +1,9 @@
 -- Line numbers
 vim.opt.nu = true
 vim.opt.relativenumber = true
+vim.opt.cursorline = true
+vim.opt.cursorlineopt = "number"
+
 
 -- Indenting
 vim.opt.autoindent = true
@@ -40,11 +43,11 @@ vim.g.mapleader = " "
 -- See `:help vim.highlight.on_yank()`
 local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
 vim.api.nvim_create_autocmd('TextYankPost', {
-  callback = function()
-    vim.highlight.on_yank()
-  end,
-  group = highlight_group,
-  pattern = '*',
+    callback = function()
+        vim.highlight.on_yank()
+    end,
+    group = highlight_group,
+    pattern = '*',
 })
 
 -- Remap for dealing with word wrap
@@ -57,10 +60,6 @@ vim.opt.cmdheight = 0
 -- Automatically update files when changed outside of vim
 vim.cmd([[set autoread]])
 vim.cmd([[autocmd FocusGained * checktime]])
-
--- Spelling
-vim.cmd([[setlocal spell]])
-vim.opt.spelllang = "en_gb"
 
 -- Remove auto comment lines
 vim.cmd('autocmd BufEnter * set formatoptions-=cro')

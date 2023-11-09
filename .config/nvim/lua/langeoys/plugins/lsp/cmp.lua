@@ -51,24 +51,13 @@ local function tableContains(table, value)
     return false
 end
 
-local menu = {
-    buffer = "[buf]",
-    nvim_lsp = "[LSP]",
-    nvim_lua = "[api]",
-    path = "[path]",
-    luasnip = "[snip]",
-    copilot = "[copilot]",
-    ['vim-dadbod-completion'] = '[DB]',
-}
 local parameterizedTypes = {
     2, 3, 4
 }
 local function formatLspFunctions(entry, vim_item)
-    local source = entry.source.name
     local item = entry:get_completion_item()
 
     if entry.source.source.client.name ~= "jdtls" then
-        vim_item.menu = menu[source]
         return vim_item
     end
     if tableContains(parameterizedTypes, item.kind) then
@@ -76,8 +65,6 @@ local function formatLspFunctions(entry, vim_item)
             item.labelDetails.detail
         if item.kind ~= 4 then
             vim_item.menu = item.labelDetails.description
-        else
-            vim_item.menu = menu[source]
         end
     end
 
@@ -139,7 +126,7 @@ return {
                 if cmp.visible() then
                     -- need this to enter the menu
                     if cmp.get_selected_entry() == nil then
-                        cmp.select_next_item({behavior = cmp.SelectBehavior.Insert})
+                        cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
                     end
 
                     cmp.select_next_item({ count = i - 1, behavior = cmp.SelectBehavior.Insert })
@@ -183,15 +170,15 @@ return {
                 end,
             },
             window = {
-                completion = cmp.config.window.bordered(),
-                documentation = cmp.config.window.bordered(),
+                -- completion = cmp.config.window.bordered(),
+                -- documentation = cmp.config.window.bordered(),
             },
             view = {
                 entries = { name = 'custom', selection_order = 'near_cursor' }
             },
             sources = {
                 { name = 'nvim_lsp', max_item_count = 20 },
-                { name = 'nvim_luA' },
+                { name = 'nvim_lua' },
                 { name = 'luasnip', },
                 { name = "buffer",   keyword_length = 5 },
                 { name = 'path' },
@@ -211,8 +198,6 @@ return {
                             vim_item = formatLspFunctions(entry, vim_item)
                             return vim_item
                         end
-
-                        vim_item.menu = menu[source]
 
                         return vim_item
                     end

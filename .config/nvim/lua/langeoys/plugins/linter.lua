@@ -3,8 +3,8 @@ return {
     config = function()
         require('lint').linters_by_ft = {
             markdown = { 'vale', },
-            typescript = { 'eslint_d', },
-            javascript = { 'eslint_d', },
+            typescript = { 'eslint', },
+            javascript = { 'eslint', },
         }
     end
 }

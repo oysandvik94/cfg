@@ -18,9 +18,10 @@ local file_name_formatter = function(opts)
         vim.cmd('highlight! @ibl.indent.char.2 guibg=NONE guifg=#E0DEF4')
         vim.cmd('highlight! @ibl.indent.char.1 guibg=NONE guifg=#6e6a86')
         vim.cmd('highlight! TelescopeSelection guibg=#403d52 guifg=#6e6a86')
+        vim.cmd('highlight! TelescopeNormal guibg=#242936')
         return displayer({
             { entry.devicons,   entry.devicons_highlight },
-            {entry.file_name, "@ibl.indent.char.2" },
+            { entry.file_name,  "@ibl.indent.char.2" },
             { entry.grayed_out, "@ibl.indent.char.1" },
         })
     end
@@ -82,13 +83,17 @@ local theme_picker = function()
                 actions.close(bufnr)
                 local selection = action_state.get_selected_entry()
                 vim.cmd('colorscheme ' .. selection[1])
+                local colorFile = vim.fn.stdpath('data') .. "/colorscheme"
+                local file = io.open(colorFile, "w")
+                file:write(selection[1])
+                file:close()
             end)
 
-            map("i", "<C-j>", next_color)
-            map("i", "<C-k>", prev_color)
-            map("i", "<C-n>", next_color)
-            map("i", "<C-p>", prev_color)
-
+            -- map("i", "<C-j>", next_color)
+            -- map("i", "<C-k>", prev_color)
+            -- map("i", "<C-n>", next_color)
+            -- map("i", "<C-p>", prev_color)
+            --
             return true
         end,
     }):find()
@@ -155,7 +160,7 @@ return {
                 show_untracked = true,
             }
 
-                builtin.find_files(opts)
+            builtin.find_files(opts)
             -- local succ = pcall(builtin.git_files, opts)
             --
             -- if not succ then
