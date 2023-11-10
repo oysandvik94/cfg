@@ -3,6 +3,9 @@
 bindkey -v
 export KEYTIMEOUT=1
 
+bindkey -M vicmd _ beginning-of-line
+
+
 # Open command in vim
 autoload -Uz edit-command-line
 zle -N edit-command-line
