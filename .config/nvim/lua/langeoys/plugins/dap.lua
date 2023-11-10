@@ -57,6 +57,15 @@ return {
         vim.keymap.set('n', '<leader>dT', function() trigger_dap(jdtls.test_class) end, { desc = 'Debug test class' });
         vim.keymap.set('n', '<leader>dp', function() trigger_dap(jdtls.pick_test) end, { desc = 'Choose nearest test' });
         vim.keymap.set('n', '<leader>dl', function() trigger_dap(dap.run_last) end, { desc = 'Choose nearest test' });
+        vim.keymap.set("n", "<leader>ds", function()
+            local dap = require("dap")
+            if dap.session() then
+                local widgets = require("dap.ui.widgets")
+                widgets.centered_float(widgets.scopes)
+            else
+                require("jdtls.dap").pick_test()
+            end
+        end, opts)
         vim.keymap.set('n', '<leader>do', function() dap.step_over() end, { desc = 'Step over' });
         vim.keymap.set('n', '<leader>di', function() dap.step_into() end, { desc = 'Step into' });
         vim.keymap.set('n', '<leader>du', function() dap.step_out() end, { desc = 'Step out' });
