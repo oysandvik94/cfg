@@ -1,6 +1,5 @@
 local ls = require("luasnip")
 
-
 local s = ls.s
 local fmt = require("luasnip.extras.fmt").fmt
 local i = ls.insert_node
@@ -43,11 +42,3 @@ return {
         { i(1), toParameter(1) }
     ))
 }
-
--- snip({
---     trig = "logger",
---     namr = "Logger",
---     dscr = "Insert logger for class",
--- }, {
---     text("private static final Logger log = Logger.getLogger();"),
--- }),
