@@ -76,27 +76,6 @@ local function get_jdtls_paths()
         vim.list_extend(path.bundles, java_debug_bundle)
     end
 
-    ---
-    -- Include spring-boot bundle if present
-    ---
-
-    -- local spring_boot_path = "~/Downloads/vscode-spring-boot-1.49.0-RC.2/extension/jars/"
-    --
-    -- local common_spring_boot_bundle = vim.split(
-    --     vim.fn.glob(spring_boot_path .. 'jdt-ls-commons.jar'),
-    --     '\n'
-    -- )
-    --
-    -- local extension_spring_boot_bundle = vim.split(
-    --     vim.fn.glob(spring_boot_path .. 'jdt-ls-extension.jar'),
-    --     '\n'
-    -- )
-    --
-    --
-    -- if common_spring_boot_bundle[1] ~= '' and extension_spring_boot_bundle[1] ~= '' then
-    --     vim.list_extend(path.bundles, common_spring_boot_bundle)
-    --     vim.list_extend(path.bundles, extension_spring_boot_bundle)
-    -- end
 
     ---
     -- Useful if you're starting jdtls with a Java version that's

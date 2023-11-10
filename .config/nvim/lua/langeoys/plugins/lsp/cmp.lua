@@ -76,6 +76,7 @@ return {
     event = "InsertEnter",
     dependencies = {
         { 'hrsh7th/nvim-cmp' },     -- Required
+        {'hrsh7th/cmp-buffer'},
         { 'hrsh7th/cmp-nvim-lsp' }, -- Required
         { 'hrsh7th/cmp-cmdline' },
         { 'hrsh7th/cmp-path' },
@@ -153,12 +154,12 @@ return {
             sorting = {
                 comparators = {
                     -- deprio(types.lsp.CompletionItemKind.Snippet),
+                    cmp.config.compare.recently_used,
                     cmp.config.compare.offset,
-                    cmp.config.compare.exact,
                     cmp.config.compare.score,
+                    cmp.config.compare.exact,
                     under,
                     downpri_object_methods,
-
                     cmp.config.compare.kind,
                     cmp.config.compare.sort_text,
                     cmp.config.compare.length,
@@ -177,7 +178,20 @@ return {
                 entries = { name = 'custom', selection_order = 'near_cursor' }
             },
             sources = {
-                { name = 'nvim_lsp', max_item_count = 20 },
+                {
+                    name = "nvim_lsp",
+                    entry_filter = function(entry, ctx)
+                        local kind = require("cmp.types.lsp").CompletionItemKind[entry:get_kind()]
+                        if kind == "Snippet" and ctx.prev_context.filetype == "java" then
+                            if entry:get_completion_item().label == "class" then
+                                return true
+                            end
+
+                            return false
+                        end
+                        return true
+                    end,
+                },
                 { name = 'nvim_lua' },
                 { name = 'luasnip', },
                 { name = "buffer",   keyword_length = 5 },
