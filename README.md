@@ -50,6 +50,8 @@ ripgrep
 
 npm
 
+playerctl
+
 ## Environment variables
 
 Set these in a bashscript in /etc/profile.d
