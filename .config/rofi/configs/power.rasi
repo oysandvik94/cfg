@@ -5,7 +5,7 @@ configuration {
 @import "~/.config/rofi/themes/colors.rasi"
 
 window {
-	width: 390px;
+	width: 451px;
 	border-radius: 0;
 	border: 0;
 	padding: 0;
@@ -21,7 +21,7 @@ mainbox {
 listview {
 	enabled: true;
 	columns: 1;
-	lines: 3;
+	lines: 4;
 	cycle: true;
 	dynamic: true;
 	scrollbar: false;
