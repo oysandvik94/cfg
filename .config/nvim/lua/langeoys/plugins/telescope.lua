@@ -196,6 +196,7 @@ return {
         vim.keymap.set('n', '<leader>fd', dap_ui_picker, {})
         vim.keymap.set('n', '<leader>fc', theme_picker, {})
         vim.keymap.set('n', '<leader>fl', builtin.resume, {})
+        vim.keymap.set('n', '<leader>fh', builtin.help_tags, {desc = "Search for help tags"})
 
         local actions = require("telescope.actions")
         require('telescope').setup({
