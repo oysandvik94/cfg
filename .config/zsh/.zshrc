@@ -53,6 +53,12 @@ gcb() {
     git clone --bare "$repo_url" "$repo_name"
 }
 
+dota() {
+    pushd $HOME >/dev/null
+    dotfile=$(dotfiles diff --name-only | sort | fzf -m) && dotfiles add $dotfile
+    popd >/dev/null 
+}
+
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 SDKMAN_DIR="/home/oysandvik/.sdkman" 
 [[ -s "/home/oysandvik/.sdkman/bin/sdkman-init.sh" ]] && source "/home/oysandvik/.sdkman/bin/sdkman-init.sh"
