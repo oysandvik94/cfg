@@ -52,4 +52,4 @@ end, { nargs = 0 })
 vim.keymap.set("n", "<leader>ms", require("langeoys.utils.marks").get_mark_list, { noremap = true, silent = true })
 vim.keymap.set("n", "<leader>mc", require("langeoys.utils.marks").clear_global_marks, { noremap = true, silent = true })
 
-vim.keymap.set("n", "<leader><leader>d", "!/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME add %<CR>", { silent = true })
+vim.keymap.set("n", "<leader><leader>d", "<cmd>!/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME add %<CR>", { silent = true })
