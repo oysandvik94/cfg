@@ -53,3 +53,6 @@ vim.keymap.set("n", "<leader>ms", require("langeoys.utils.marks").get_mark_list,
 vim.keymap.set("n", "<leader>mc", require("langeoys.utils.marks").clear_global_marks, { noremap = true, silent = true })
 
 vim.keymap.set("n", "<leader><leader>d", "<cmd>!/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME add %<CR>", { silent = true })
+
+-- map leadercf to close :fc!
+vim.keymap.set("n", "<leader>cf", "<cmd>fc!<CR>", { desc = "Close all floats"})
