@@ -68,7 +68,7 @@ return {
                 theme = 'ayu_mirage',
                 component_separators = { left = '', right = '' },
                 section_separators = { left = '', right = '' },
-                globalstatus = true
+                globalstatus = false
             }
         })
     end

@@ -44,6 +44,7 @@ vim.api.nvim_create_user_command('PrintColor', function()
     local file = io.open(fileName, "r")
     if file then
         local color = file:read()
+        print(color)
         file:close()
     end
 end, { nargs = 0 })
