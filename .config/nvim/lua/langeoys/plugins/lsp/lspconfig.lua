@@ -3,12 +3,14 @@ return {
 	event = { "BufReadPre", "BufNewFile" },
 	dependencies = {
 		"williamboman/mason.nvim",
-		-- "jmederosalvarado/roslyn.nvim",
+		"jmederosalvarado/roslyn.nvim",
 		"williamboman/mason-lspconfig.nvim",
 		"hrsh7th/nvim-cmp",
 		"folke/neodev.nvim",
 	},
 	config = function()
+        -- experiment with roslyn instead of omnisharp
+        local use_roslyn = true
 		-- IMPORTANT: make sure to setup neodev BEFORE lspconfig
 		require("neodev").setup({
 			-- add any options here, or leave empty to use the default settings
@@ -56,15 +58,12 @@ return {
 			end, {})
 		end
 
-
-
-
 		local capabilities = cmp_nvim_lsp.default_capabilities()
 		local handlers = {
 			function(server_name) -- default handler (optional)
 				require("lspconfig")[server_name].setup({
 					capabilities = capabilities,
-                    on_attach = on_attach,
+					on_attach = on_attach,
 				})
 			end,
 			["angularls"] = function()
@@ -78,31 +77,33 @@ return {
 
 				require("lspconfig").angularls.setup({
 					capabilities = capabilities,
-                    on_attach = on_attach,
+					on_attach = on_attach,
 				})
 			end,
 			["omnisharp"] = function()
-				vim.api.nvim_create_autocmd("FileType", {
-					pattern = { "cs" },
-					desc = "Set dotnet compiler",
-					callback = function()
-						vim.cmd("compiler dotnet")
-					end,
-				})
+				if not use_roslyn then
+					vim.api.nvim_create_autocmd("FileType", {
+						pattern = { "cs" },
+						desc = "Set dotnet compiler",
+						callback = function()
+							vim.cmd("compiler dotnet")
+						end,
+					})
 
-				require("lspconfig").omnisharp.setup({
-					capabilities = capabilities,
-                    on_attach = on_attach,
-					settings = {
-						solution_first = true,
-						enable_editorconfig_support = true,
-					},
-				})
+					require("lspconfig").omnisharp.setup({
+						capabilities = capabilities,
+						on_attach = on_attach,
+						settings = {
+							solution_first = true,
+							enable_editorconfig_support = true,
+						},
+					})
+				end
 			end,
 			["lua_ls"] = function()
 				require("lspconfig").lua_ls.setup({
 					capabilities = capabilities,
-                    on_attach = on_attach,
+					on_attach = on_attach,
 					settings = {
 						Lua = {
 							diagnostics = {
@@ -121,11 +122,13 @@ return {
 			end,
 		}
 
-		-- require("roslyn").setup({
-		-- 	capabilities = capabilities, -- required
-  --           on_attach = on_attach,
-		-- })
-		--
+		if use_roslyn then
+			require("roslyn").setup({
+				capabilities = capabilities, -- required
+				on_attach = on_attach,
+			})
+		end
+
 		local mason = require("mason").setup()
 		local mason_lspconfig = require("mason-lspconfig")
 		mason_lspconfig.setup({
