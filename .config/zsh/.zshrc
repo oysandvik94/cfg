@@ -41,6 +41,18 @@ dotc() {
     fi
 }
 
+gcb() {
+    if [ $# -eq 0 ]; then
+        echo "Usage: gcb <repository>"
+        return 1
+    fi
+
+    local repo_url="$1"
+    local repo_name=$(basename "$repo_url" .git)
+
+    git clone --bare "$repo_url" "$repo_name"
+}
+
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 SDKMAN_DIR="/home/oysandvik/.sdkman" 
 [[ -s "/home/oysandvik/.sdkman/bin/sdkman-init.sh" ]] && source "/home/oysandvik/.sdkman/bin/sdkman-init.sh"
