@@ -9,8 +9,8 @@ return {
 		"folke/neodev.nvim",
 	},
 	config = function()
-        -- experiment with roslyn instead of omnisharp
-        local use_roslyn = true
+		-- experiment with roslyn instead of omnisharp
+		local use_roslyn = true
 		-- IMPORTANT: make sure to setup neodev BEFORE lspconfig
 		require("neodev").setup({
 			-- add any options here, or leave empty to use the default settings
@@ -18,7 +18,7 @@ return {
 
 		local cmp_nvim_lsp = require("cmp_nvim_lsp")
 
-        local on_attach =   require("langeoys.utils.lsp").on_attach
+		local on_attach = require("langeoys.utils.lsp").on_attach
 
 		local capabilities = cmp_nvim_lsp.default_capabilities()
 		local handlers = {
@@ -72,6 +72,10 @@ return {
 								globals = { "vim" },
 							},
 							workspace = {
+								library = {
+									[vim.fn.expand("$VIMRUNTIME/lua")] = true,
+									[vim.fn.stdpath("config") .. "/lua"] = true,
+								},
 								maxPreload = 10000, -- Add this if missing or increase it
 								preloadFileSize = 10000, -- Add this if missing or increase it
 							},

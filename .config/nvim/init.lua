@@ -1,8 +1,8 @@
 local highlight_group = vim.api.nvim_create_augroup('TSHighlights', { clear = true })
 vim.api.nvim_create_autocmd('ColorScheme', {
     callback = function()
-        vim.cmd.highlight('TelescopeNormal  guibg=#242936 ')
-        vim.cmd.highlight('TelescopeSelection  guibg=#403d52, guifg=#6e6a86')
+        -- vim.cmd.highlight('TelescopeNormal  guibg=#242936 ')
+        -- vim.cmd.highlight('TelescopeSelection  guibg=#403d52, guifg=#6e6a86')
 
         -- local highlights = {
         --     'Normal',
@@ -19,7 +19,7 @@ vim.api.nvim_create_autocmd('ColorScheme', {
 
         -- :h hl-CursorLineNr 
         -- vim.api.nvim_set_hl(0, 'CursorLineNr', { bg = 'none' })
-        vim.cmd.highlight("CursorLineNr guibg=none")
+        -- vim.cmd.highlight("CursorLineNr guibg=none")
 
     end,
     group = highlight_group,

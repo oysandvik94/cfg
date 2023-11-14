@@ -62,10 +62,18 @@ M.get_mark_list = function()
 	end)
 end
 
-M.set_global_marks = function (marks)
-    for k, v in pairs(marks) do
-        vim.api.nvim_buf_set_mark(v[3], k, v[1], v[2], {})
-    end
+M.set_global_marks = function(marks)
+	local bufnr = vim.api.nvim_create_buf(false, true)
+	for k, v in pairs(marks) do
+        local filename = vim.fn.expand(v[4])
+        print("fiol")
+        P(filename)
+        filename = "/home/oysandvik/dev/spring-chat.git/main/backend/pom.xml"
+        filename = vim.fn.expand(filename)
+		vim.api.nvim_buf_set_name(bufnr, filename)
+		vim.api.nvim_buf_set_mark(bufnr, k, v[1], v[2], {})
+	end
+	vim.cmd("bd " .. bufnr)
 end
 
 M.clear_global_marks = function()
@@ -74,4 +82,14 @@ M.clear_global_marks = function()
 	end
 end
 
+-- M.set_global_marks({
+-- 	R = { 1, 0, 0, "/home/oysandvik/.config/nvim/lua/langeoys/plugins/telescope.lua" },
+-- })
+-- M.set_global_marks({
+-- 	W = { 1, 0, 0, "/home/oysandvik/.config/nvim/lua/langeoys/plugins/dadbod.lua" },
+-- })
+-- --
+-- P(vim.api.nvim_list_bufs())
+-- P(vim.api.nvim_get_mark("R", {}))
+-- P(vim.api.nvim_list_bufs())
 return M

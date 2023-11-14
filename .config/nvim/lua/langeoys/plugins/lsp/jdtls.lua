@@ -285,8 +285,8 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 return {
-	"mfussenegger/nvim-jdtls",
-	-- dir = "~/dev/nvim-jdtls",
+	-- "mfussenegger/nvim-jdtls",
+	dir = "~/dev/nvim-jdtls",
 	dependencies = {
 		"rcarriga/nvim-dap-ui",
 		"mfussenegger/nvim-dap",
