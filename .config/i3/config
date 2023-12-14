@@ -19,11 +19,12 @@ exec_always --no-startup-id "$HOME/.config/i3/monitors.sh"
 # Set keyboard layout
 exec_always --no-startup-id "$HOME/.config/polybar/launch.sh"
 exec_always --no-startup-id "picom --experimental-backends -b #000000"
-exec "dunst"
-exec "brightnessctl set 100%"
-exec "$HOME/.config/bspwm/pollLidClose.sh"
-exec_always "feh --bg-scale ~/wallpapers/montains.jpeg"
-exec_always "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &"
+exec --no-startup-id "dunst"
+exec --no-startup-id "brightnessctl set 100%"
+exec --no-startup-id "$HOME/.config/bspwm/pollLidClose.sh"
+exec --no-startup-id "autotiling"
+exec_always --no-startup-id "feh --bg-scale ~/wallpapers/death.png"
+exec_always --no-startup-id "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &"
 
 # Disable laptop monitor if lid is closed during boot
 
