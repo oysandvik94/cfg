@@ -14,10 +14,9 @@ source $ZDOTDIR/vim.zsh
 
 
 path+=("$HOME/.local/bin/scripts")
+path+=("$HOME/.local/share/nvim/mason/bin")
 
 # Completion
-source /usr/share/doc/fzf/examples/key-bindings.zsh
-source /usr/share/doc/fzf/examples/completion.zsh
 autoload -U compinit; compinit
 _comp_options+=(globdots) # With hidden files
 source $ZDOTDIR/completion.zsh
@@ -67,3 +66,5 @@ source ~/powerlevel10k/powerlevel10k.zsh-theme
 
 # To customize prompt, run `p10k configure` or edit ~/.config/zsh/.p10k.zsh.
 [[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

@@ -9,7 +9,7 @@ bindkey -M vicmd _ beginning-of-line
 # Open command in vim
 autoload -Uz edit-command-line
 zle -N edit-command-line
-bindkey -M vicmd e edit-command-line
+bindkey -M vicmd V edit-command-line
 
 # textobjects
 autoload -Uz select-bracketed select-quoted
