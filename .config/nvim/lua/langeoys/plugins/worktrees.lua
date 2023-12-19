@@ -23,33 +23,18 @@ return {
 
 		Worktree.on_tree_change(function(op, metadata)
 			if op == Worktree.Operations.Switch then
-				local Path = require("plenary.path")
 				local absolute_path = vim.fn.expand(metadata.path)
 				local absolute_prev_path = vim.fn.expand(metadata.prev_path)
 
 				local marks_util = require("langeoys.utils.marks")
 
-				local mark_file = vim.fn.stdpath("data") .. "/worktree_marks.json"
+				marks_util.restore_wormtree_marks(absolute_path, absolute_prev_path)
 
-				local stored_marks = {}
-				local ok, decoded_json = pcall(function()
-					return vim.json.decode(Path:new(mark_file):read())
-				end)
+				require("session_manager").load_current_dir_session()
 
-				if ok and decoded_json then
-					stored_marks = decoded_json
-				end
-
-				local current_marks = marks_util.get_mark_table()
-				stored_marks[absolute_prev_path] = current_marks
-
-				marks_util.clear_global_marks()
-
-				if stored_marks and stored_marks[absolute_path] then
-					marks_util.set_global_marks(stored_marks[absolute_path])
-				end
-
-				Path:new(mark_file):write(vim.fn.json_encode(stored_marks), "w")
+                require("langeoys.utils.session").store_last_worktree_branch(absolute_path)
+            elseif op == Worktree.Operations.Create then
+                require("langeoys.utils.session").store_last_worktree_branch(vim.loop.cwd() .. "/" .. metadata.path)
 			end
 		end)
 	end,

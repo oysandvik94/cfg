@@ -54,7 +54,7 @@ return {
 			dashboard.button("r", " " .. " Recent files", ":Telescope oldfiles <CR>"),
 			dashboard.button("g", " " .. " Find text", ":Telescope live_grep <CR>"),
 			dashboard.button("l", "󰒲 " .. " Lazy", ":Lazy<CR>"),
-			dashboard.button("s", "󰁯 " .. " Restore last session", ":SessionManager load_last_session<CR>"),
+			dashboard.button("s", "󰁯 " .. " Restore last session", ":lua require('langeoys.utils.session').load_last_session()<CR>"),
 			dashboard.button("w", " " .. " Choose worktree", ":lua require('telescope').extensions.git_worktree.git_worktrees()<CR>"),
 			dashboard.button("q", " " .. " Quit", ":qa<CR>"),
 		}

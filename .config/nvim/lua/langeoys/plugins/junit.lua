@@ -1,5 +1,5 @@
 return {
-    dir = "~/dev/junit-runner",
+    dir = "~/dev/general/junit-runner",
     config = function ()
         require("junit-runner").setup()
     end

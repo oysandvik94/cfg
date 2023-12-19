@@ -10,8 +10,35 @@ vim.opt.autoindent = true
 vim.opt.smartindent = true
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
-vim.opt.shiftwidth = 4
-vim.opt.expandtab = true
+function TabsOrSpaces()
+    -- Determines whether to use spaces or tabs on the current buffer.
+    if vim.fn.getfsize(vim.fn.bufname("%")) > 256000 then
+        -- File is very large, just use the default.
+        return
+    end
+
+    local numTabs = #vim.fn.filter(vim.fn.getbufline(vim.fn.bufname("%"), 1, 250), 'v:val =~ "^\\t"')
+    local numSpaces = #vim.fn.filter(vim.fn.getbufline(vim.fn.bufname("%"), 1, 250), 'v:val =~ "^ "')
+
+    if numTabs > numSpaces then
+        vim.api.nvim_buf_set_option(0, 'expandtab', false)
+    else
+        vim.api.nvim_buf_set_option(0, 'expandtab', true)
+    end
+end
+
+-- Call the function after opening a buffer
+local TabsOrSpacer_group = vim.api.nvim_create_augroup('TabsOrSpacer', { clear = true })
+vim.api.nvim_create_autocmd('BufEnter', {
+    callback = function()
+        TabsOrSpaces()
+    end,
+    group = TabsOrSpacer_group,
+    pattern = '*',
+})
+
+-- vim.opt.shiftwidth = 4
+-- vim.opt.expandtab = true
 
 -- Backup stuff
 vim.opt.swapfile = false
@@ -50,9 +77,11 @@ vim.api.nvim_create_autocmd('TextYankPost', {
     pattern = '*',
 })
 
--- Remap for dealing with word wrap
-vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
-vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+-- wrap
+vim.opt.linebreak = true
+vim.opt.breakindent = true
+vim.opt.wrap = true
+vim.opt.showbreak = "↳ "
 
 -- Cmdheight 0
 vim.opt.cmdheight = 0
@@ -64,4 +93,5 @@ vim.cmd([[autocmd FocusGained * checktime]])
 -- Remove auto comment lines
 vim.cmd('autocmd BufEnter * set formatoptions-=cro')
 vim.cmd('autocmd BufEnter * setlocal formatoptions-=cro')
+
 

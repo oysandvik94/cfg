@@ -28,20 +28,6 @@ return {
 					on_attach = on_attach,
 				})
 			end,
-			["angularls"] = function()
-				vim.api.nvim_create_autocmd("FileType", {
-					pattern = { "cs" },
-					desc = "Set dotnet compiler",
-					callback = function()
-						vim.cmd("compiler dotnet")
-					end,
-				})
-
-				require("lspconfig").angularls.setup({
-					capabilities = capabilities,
-					on_attach = on_attach,
-				})
-			end,
 			["omnisharp"] = function()
 				if not use_roslyn then
 					vim.api.nvim_create_autocmd("FileType", {
@@ -83,13 +69,30 @@ return {
 					},
 				})
 			end,
-			["jdtls"] = function()
-				-- no-op, configured in nvim-jdtls plugin
+			["kotlin_language_server"] = function()
+				require("lspconfig").kotlin_language_server.setup({
+					capabilities = capabilities,
+					on_attach = on_attach,
+					settings = { kotlin = { compiler = { jvm = { target = "20" } } } },
+					-- settings = {
+					-- 	kotlin = {
+					-- 		compiler = {
+					-- 			jvm = {
+					-- 				target = "1.8",
+					-- 			},
+					-- 		},
+					-- 	},
+					-- },
+				})
 			end,
+			-- no-op, configured in seperate plugins
+			["jdtls"] = function() end,
+			["tsserver"] = function() end,
 		}
 
 		if use_roslyn then
 			require("roslyn").setup({
+				roslyn_version = "4.8.0-3.23475.7", -- this is the default
 				capabilities = capabilities, -- required
 				on_attach = on_attach,
 			})
@@ -131,12 +134,27 @@ return {
 			float = {
 				focusable = false,
 				style = "minimal",
-				border = "rounded",
+				border = "single",
 				source = "always",
 				header = "",
 				prefix = "",
 			},
 		}
 		vim.diagnostic.config(config)
+		vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
+			border = "single",
+		})
+
+		vim.lsp.util.stylize_markdown = function(bufnr, contents, opts)
+			contents = vim.lsp.util._normalize_markdown(contents, {
+				width = vim.lsp.util._make_floating_popup_size(contents, opts),
+			})
+
+			vim.bo[bufnr].filetype = "markdown"
+			vim.treesitter.start(bufnr)
+			vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, contents)
+
+			return contents
+		end
 	end,
 }

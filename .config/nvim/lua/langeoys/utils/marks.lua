@@ -65,11 +65,9 @@ end
 M.set_global_marks = function(marks)
 	local bufnr = vim.api.nvim_create_buf(false, true)
 	for k, v in pairs(marks) do
-        local filename = vim.fn.expand(v[4])
-        print("fiol")
-        P(filename)
-        filename = "/home/oysandvik/dev/spring-chat.git/main/backend/pom.xml"
-        filename = vim.fn.expand(filename)
+		local filename = vim.fn.expand(v[4])
+		filename = "/home/oysandvik/dev/spring-chat.git/main/backend/pom.xml"
+		filename = vim.fn.expand(filename)
 		vim.api.nvim_buf_set_name(bufnr, filename)
 		vim.api.nvim_buf_set_mark(bufnr, k, v[1], v[2], {})
 	end
@@ -82,14 +80,20 @@ M.clear_global_marks = function()
 	end
 end
 
--- M.set_global_marks({
--- 	R = { 1, 0, 0, "/home/oysandvik/.config/nvim/lua/langeoys/plugins/telescope.lua" },
--- })
--- M.set_global_marks({
--- 	W = { 1, 0, 0, "/home/oysandvik/.config/nvim/lua/langeoys/plugins/dadbod.lua" },
--- })
--- --
--- P(vim.api.nvim_list_bufs())
--- P(vim.api.nvim_get_mark("R", {}))
--- P(vim.api.nvim_list_bufs())
+M.restore_wormtree_marks = function(absolute_path, absolute_prev_path)
+	local state_utils = require("langeoys.utils.state")
+
+	local stored_marks = state_utils.get_state(state_utils.MARK_STATE)
+
+	local current_marks = M.get_mark_table()
+	stored_marks[absolute_prev_path] = current_marks
+
+	M.clear_global_marks()
+
+	if stored_marks and stored_marks[absolute_path] then
+		M.set_global_marks(stored_marks[absolute_path])
+	end
+
+    state_utils.save_state(state_utils.MARK_STATE, stored_marks)
+end
 return M

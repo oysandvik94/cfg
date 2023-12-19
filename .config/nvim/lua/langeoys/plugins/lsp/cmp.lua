@@ -59,6 +59,10 @@ local function formatLspFunctions(entry, vim_item)
 	local item = entry:get_completion_item()
 
 	if entry.source.source.client.name ~= "jdtls" then
+        -- set max width
+        if vim_item.menu then
+            vim_item.menu = string.sub(vim_item.menu, 1, 10)
+        end
 		return vim_item
 	end
 	if tableContains(parameterizedTypes, item.kind) then
@@ -86,8 +90,9 @@ return {
 		"saadparwaiz1/cmp_luasnip",
 		"rafamadriz/friendly-snippets",
 		{ "onsails/lspkind.nvim" },
-		{ "ray-x/lsp_signature.nvim" },
+		{ "hrsh7th/cmp-nvim-lsp-signature-help" },
 	},
+	enabled = true,
 	config = function()
 		local cmp = require("cmp")
 		local lspkind = require("lspkind")
@@ -171,8 +176,8 @@ return {
 				end,
 			},
 			window = {
-				-- completion = cmp.config.window.bordered(),
-				-- documentation = cmp.config.window.bordered(),
+				completion = cmp.config.window.bordered(),
+				documentation = cmp.config.window.bordered(),
 			},
 			view = {
 				entries = { name = "custom", selection_order = "near_cursor" },
@@ -203,8 +208,8 @@ return {
 			formatting = {
 				format = lspkind.cmp_format({
 					mode = "symbol_text",
-					maxwidth = 40,
-					ellipsis_char = "...",
+					-- maxwidth = 10,
+					-- ellipsis_char = "...",
 					symbol_map = { Copilot = "" },
 					before = function(entry, vim_item)
 						local source = entry.source.name
@@ -251,7 +256,8 @@ return {
 
 		require("cmp").setup({
 			enabled = function()
-                return vim.api.nvim_get_option_value("buftype", { buf = 0 }) ~= "prompt" or require('cmp_dap').is_dap_buffer()
+				return vim.api.nvim_get_option_value("buftype", { buf = 0 }) ~= "prompt"
+					or require("cmp_dap").is_dap_buffer()
 			end,
 		})
 
@@ -259,19 +265,6 @@ return {
 			sources = {
 				{ name = "dap" },
 			},
-		})
-
-		require("lsp_signature").setup({
-			bind = true, -- This is mandatory, otherwise border config won't get registered.
-			handler_opts = {
-				border = "rounded",
-			},
-			hint_enable = true,
-			hint_inline = function()
-				return false
-			end,
-			hint_prefix = "",
-			select_signature_key = "A-s",
 		})
 
 		-- set highlight LspSignatureActiveParameter
@@ -282,7 +275,7 @@ return {
 			vim.lsp.buf.signature_help()
 		end, { silent = true, noremap = true, desc = "toggle signature" })
 		vim.keymap.set({ "i" }, "<A-k>", function()
-			require("lsp_signature").toggle_float_win()
+			vim.lsp.buf.signature_help()
 		end, { silent = true, noremap = true, desc = "toggle signature" })
 	end,
 }

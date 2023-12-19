@@ -1,6 +1,7 @@
 ---@diagnostic disable: missing-fields
 return {
     -- Highlight, edit, and navigate code
+    enabled = true,
     'nvim-treesitter/nvim-treesitter',
     dependencies = {
         'nvim-treesitter/nvim-treesitter-textobjects',

@@ -10,6 +10,7 @@ return {
         end,
     },
     { "catppuccin/nvim",      name = "catppuccin", priority = 1000 },
+    {'matsuuu/pinkmare'},
     { "rebelot/kanagawa.nvim" },
     {
         "folke/tokyonight.nvim",

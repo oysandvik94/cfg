@@ -6,7 +6,7 @@ local file_name_formatter = function(opts)
 	local default_icons, _ = devicons.get_icon("file", "", { default = true })
 
 	local displayer = entry_display.create({
-		separator = " ",
+		sepaeator = " ",
 		items = {
 			{ width = vim.fn.strwidth(default_icons) },
 			{ remaining = true },
@@ -84,17 +84,16 @@ local theme_picker = function()
 					actions.close(bufnr)
 					local selection = action_state.get_selected_entry()
 					vim.cmd("colorscheme " .. selection[1])
-					local colorFile = vim.fn.stdpath("data") .. "/colorscheme"
-					local file = io.open(colorFile, "w")
-					file:write(selection[1])
-					file:close()
+
+					local colorscheme = {}
+					colorscheme["colorscheme"] = selection[1]
+					P(colorscheme)
+					require("langeoys.utils.state").save_state("colorscheme", colorscheme)
 				end)
 
-				-- map("i", "<C-j>", next_color)
-				-- map("i", "<C-k>", prev_color)
-				-- map("i", "<C-n>", next_color)
-				-- map("i", "<C-p>", prev_color)
-				--
+				map("i", "<C-n>", next_color)
+				map("i", "<C-p>", prev_color)
+
 				return true
 			end,
 		})
@@ -149,6 +148,7 @@ return {
 		"nvim-lua/plenary.nvim",
 		"nvim-telescope/telescope-fzy-native.nvim",
 		"rcarriga/nvim-dap-ui",
+		"nvim-telescope/telescope-live-grep-args.nvim",
 	},
 	config = function()
 		local telescope = require("telescope")
@@ -158,24 +158,24 @@ return {
 		-- Extensions
 		telescope.load_extension("fzy_native")
 
-		vim.keymap.set("n", "<leader>ff", function()
-			local opts = {
-				entry_maker = file_name_formatter(),
-				show_untracked = true,
-			}
+		-- vim.keymap.set("n", "<leader>ff", function()
+		-- 	local opts = {
+		-- 		entry_maker = file_name_formatter(),
+		-- 		show_untracked = true,
+		-- 	}
+		--
+		-- 	builtin.find_files(opts)
+		-- 	-- local succ = pcall(builtin.git_files, opts)
+		-- 	--
+		-- 	-- if not succ then
+		-- 	-- end
+		-- end, { desc = "Fuzzy find files in project" })
 
-			builtin.find_files(opts)
-			-- local succ = pcall(builtin.git_files, opts)
-			--
-			-- if not succ then
-			-- end
-		end, { desc = "Fuzzy find files in project" })
-
-		vim.keymap.set("n", "<leader>fg", builtin.live_grep, {})
-		vim.keymap.set("v", "<leader>fg", function()
-			local text = getVisualSelection()
-			builtin.live_grep({ default_text = text })
-		end, keymap_opts)
+		-- vim.keymap.set("n", "<leader>fg", telescope.extensions.live_grep_args.live_grep_args, {})
+		-- vim.keymap.set("v", "<leader>fg", function()
+		-- 	local text = getVisualSelection()
+		-- 	builtin.live_grep({ default_text = text })
+		-- end, keymap_opts)
 
 		vim.keymap.set("n", "<leader>fsd", builtin.lsp_document_symbols, {})
 		vim.keymap.set("n", "<leader>fsg", builtin.lsp_dynamic_workspace_symbols, {})
@@ -186,7 +186,6 @@ return {
 		vim.keymap.set("n", "<leader>fd", function()
 			builtin.diagnostics({ severity_limit = "WARN" })
 		end)
-		vim.keymap.set("n", "<leader>ft", vim.cmd.Telescope, {})
 		vim.keymap.set("n", "<leader>fk", builtin.keymaps, { desc = "Search keymaps in telescope" })
 
 		vim.keymap.set("n", "<C-p>", builtin.git_files, {})
@@ -199,28 +198,14 @@ return {
 
 		vim.keymap.set("n", "<leader>fd", dap_ui_picker, {})
 		vim.keymap.set("n", "<leader>fc", theme_picker, {})
-		vim.keymap.set("n", "<leader>fl", builtin.resume, {})
+		-- vim.keymap.set("n", "<leader>fl", builtin.resume, {})
 		vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Search for help tags" })
 
 		local actions = require("telescope.actions")
 		require("telescope").setup({
 			defaults = {
 				path_display = { "smart" },
-				sorting_strategy = "ascending",
-				layout_strategy = "center",
-				-- border = false, -- kanskje
-				-- prompt_title = "",
-				-- results_title = "",
-				-- preview_title = "",
-				-- prompt_prefix = "> ",
-				-- selection_caret = "> ",
-				-- entry_prefix = "",
-				-- multi_icon = "",
-				color_devicons = true,
-				layout_config = {
-					anchor = "N",
-					width = 99,
-				},
+				borderchars = { "─", "│", "─", "│", "┌", "┐", "┘", "└" },
 				mappings = {
 					i = {
 						["<C-e>"] = actions.close,

@@ -75,11 +75,17 @@ local function get_jdtls_paths()
 		-- https://github.com/eclipse/eclipse.jdt.ls/wiki/Running-the-JAVA-LS-server-from-the-command-line#initialize-request
 		--
 		-- This example assume you are using sdkman: https://sdkman.io
+        {
+            name = "JavaSE-1.8",
+            path = vim.fn.expand("~/.sdkman/candidates/java/8.0.392-tem"),
+        },
 		{
 			name = "JavaSE-17",
 			path = vim.fn.expand("/usr/lib/jvm/java-17-openjdk-amd64"),
 		},
-		-- {
+        
+		
+        -- {
 		--   name = 'JavaSE-18',
 		--   path = vim.fn.expand('~/.sdkman/candidates/java/18.0.2-amzn'),
 		-- },
@@ -135,7 +141,7 @@ local function jdtls_setup(event)
 	local jdtls = require("jdtls")
 
 	local path = get_jdtls_paths()
-	local data_dir = path.data_dir .. "/" .. vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h:t")
+    local data_dir = path.data_dir .. "/" .. string.gsub(vim.fn.getcwd(), "/", "_")
 
 	if cache_vars.capabilities == nil then
 		jdtls.extendedClientCapabilities.resolveAdditionalTextEditsSupport = true
@@ -153,7 +159,7 @@ local function jdtls_setup(event)
 	-- The command that starts the language server
 	-- See: https://github.com/eclipse/eclipse.jdt.ls#running-from-the-command-line
 	local cmd = {
-		"java",
+		"/home/oysandvik/.sdkman/candidates/java/17.0.9-tem/bin/java",
 
 		"-Declipse.application=org.eclipse.jdt.ls.core.id1",
 		"-Dosgi.bundles.defaultStartLevel=4",
@@ -267,7 +273,7 @@ local function jdtls_setup(event)
 		settings = lsp_settings,
 		on_attach = jdtls_on_attach,
 		capabilities = cache_vars.capabilities,
-		root_dir = jdtls.setup.find_root(root_files),
+		root_dir = vim.fs.dirname(vim.fs.find({'gradlew', '.git', 'mvnw'}, { upward = true })[1]),
 		flags = {
 			allow_incremental_sync = true,
 		},
@@ -285,8 +291,8 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 return {
-	-- "mfussenegger/nvim-jdtls",
-	dir = "~/dev/nvim-jdtls",
+	"mfussenegger/nvim-jdtls",
+	-- dir = "~/dev/general/nvim-jdtls",
 	dependencies = {
 		"rcarriga/nvim-dap-ui",
 		"mfussenegger/nvim-dap",

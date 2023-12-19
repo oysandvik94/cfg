@@ -28,7 +28,7 @@ return {
                 map('v', '<leader>cs', function() gs.stage_hunk { vim.fn.line('.'), vim.fn.line('v') } end, { desc = "Stage hunk"})
                 map('v', '<leader>cr', function() gs.reset_hunk { vim.fn.line('.'), vim.fn.line('v') } end, { desc = "Reset hunk"})
                 map('n', '<leader>cu', gs.undo_stage_hunk, { desc = "Undo stage hunk"})
-                map('n', '<leader>cp', gs.preview_hunk, { desc = "Preview hunk"})
+                map('n', '<leader>cp', gs.preview_hunk_inline, { desc = "Preview hunk"})
                 map('n', '<leader>cb', function() gs.blame_line { full = true } end, { desc = "Git blame for this line"})
                 map('n', '<leader>cd', gs.diffthis, { desc = "Diff this line"})
                 map('n', '<leader>ctd', gs.toggle_deleted, { desc = "Toggle deleted lines"})

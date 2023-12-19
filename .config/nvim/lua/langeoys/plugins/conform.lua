@@ -40,6 +40,7 @@ return {
             require("conform").format({ async = true, lsp_fallback = true, range = range })
         end, { range = true })
 
-        vim.keymap.set({ 'n', 'x' }, "<leader>lf", ":Format<CR>", { desc = "Format file according to formatter" })
+        vim.keymap.set({ 'n' }, "<leader>lf", ":Format<CR>", { desc = "Format file according to formatter" })
+        vim.keymap.set({ 'x', 'v'}, "<leader>lf", ":'<,'>Format<CR>", { desc = "Format file according to formatter" })
     end
 }
