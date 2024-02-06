@@ -83,6 +83,10 @@ local function get_jdtls_paths()
 			name = "JavaSE-17",
 			path = vim.fn.expand("/usr/lib/jvm/java-17-openjdk-amd64"),
 		},
+		{
+			name = "JavaSE-21",
+			path = vim.fn.expand("/home/oysandvik/.sdkman/candidates/java/21-open"),
+		},
         
 		
         -- {
@@ -216,7 +220,7 @@ local function jdtls_setup(event)
 				},
 			},
 			format = {
-				enabled = false,
+				enabled = true,
 				settings = {
 					url = vim.fn.stdpath("config") .. "/lang-servers/intellij-java-google-style.xml",
 					profile = "GoogleStyle",

@@ -70,6 +70,8 @@ M.on_attach = function(client, bufnr)
 		})
 		-- previewer=false
 	end, {})
+	vim.keymap.set("n", "<leader>lie", function() vim.lsp.inlay_hint.enable()end)
+	vim.keymap.set("n", "<leader>lid", function() vim.lsp.inlay_hint.enable(0, false)end)
 end
 
 return M

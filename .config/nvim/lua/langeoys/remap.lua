@@ -30,8 +30,8 @@ vim.keymap.set("n", "[t", "<cmd>tabprev<CR>")
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>')
 
 -- Splits
-vim.keymap.set("n", "<leader>h", "<cmd>split<CR>")
-vim.keymap.set("n", "<leader>v", "<cmd>vsplit<CR>")
+vim.keymap.set("n", "<leader>h", "<cmd>split<CR><C-w>w")
+vim.keymap.set("n", "<leader>v", "<cmd>vsplit<CR><C-w>w")
 
 -- Insert semicolon
 vim.keymap.set("i", "<C-]>", "<esc>A;<esc>", { noremap = true, silent = true })
@@ -56,3 +56,7 @@ vim.keymap.set("n", "<leader><leader>d", "<cmd>!/usr/bin/git --git-dir=$HOME/.do
 
 -- map leadercf to close :fc!
 vim.keymap.set("n", "<leader>cf", "<cmd>fc!<CR>", { desc = "Close all floats"})
+
+-- delete function
+-- vim.keymap.set("n", "<C-f>", "Vf{%d");
+vim.keymap.set("n", "<C-f>", "va{Vd");

@@ -158,25 +158,6 @@ return {
 		-- Extensions
 		telescope.load_extension("fzy_native")
 
-		-- vim.keymap.set("n", "<leader>ff", function()
-		-- 	local opts = {
-		-- 		entry_maker = file_name_formatter(),
-		-- 		show_untracked = true,
-		-- 	}
-		--
-		-- 	builtin.find_files(opts)
-		-- 	-- local succ = pcall(builtin.git_files, opts)
-		-- 	--
-		-- 	-- if not succ then
-		-- 	-- end
-		-- end, { desc = "Fuzzy find files in project" })
-
-		-- vim.keymap.set("n", "<leader>fg", telescope.extensions.live_grep_args.live_grep_args, {})
-		-- vim.keymap.set("v", "<leader>fg", function()
-		-- 	local text = getVisualSelection()
-		-- 	builtin.live_grep({ default_text = text })
-		-- end, keymap_opts)
-
 		vim.keymap.set("n", "<leader>fsd", builtin.lsp_document_symbols, {})
 		vim.keymap.set("n", "<leader>fsg", builtin.lsp_dynamic_workspace_symbols, {})
 		vim.keymap.set("n", "<leader>fr", function()

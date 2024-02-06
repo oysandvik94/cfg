@@ -118,10 +118,10 @@ return {
 				request = "attach",
 				name = "Debug (Attach) - Remote",
 				hostName = function() 
-					return vim.fn.input("Hostname: ")
+					return vim.fn.input("Hostname: ", "localhost")
 				end,
 				port = function()
-                    return vim.fn.input("Port: ")
+                    return vim.fn.input("Port: ", "8000")
                 end,
 			},
 		}

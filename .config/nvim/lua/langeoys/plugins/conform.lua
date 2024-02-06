@@ -7,19 +7,24 @@ return {
             args = { "-a", "-" },
         }
 
+        require("conform").formatters.customxmlformat = {
+            command = "xmlformat",
+            args = { "--indent", "4", "--overwrite", "-" },
+        }
+
         require("conform").setup({
             formatters_by_ft = {
                 lua             = { "stylua" },
                 -- Conform will run multiple formatters sequentially
                 python          = { "isort", "black" },
                 -- Use a sub-list to run only the first available formatter
-                java            = { "memes" },
+                -- java            = { "memes" },
                 javascript      = { "prettier" },
                 typescript      = { "prettier" },
                 javascriptreact = { "prettier" },
                 typescriptreact = { "prettier" },
                 css             = { "prettier" },
-                xml             = { "xmlformat" },
+                xml             = { "customxmlformat" },
                 html            = { "prettier" },
                 markdown        = { "prettier" },
                 bash            = { "shfmt" },

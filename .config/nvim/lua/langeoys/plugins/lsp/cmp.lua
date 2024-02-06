@@ -158,7 +158,7 @@ return {
 			sorting = {
 				comparators = {
 					-- deprio(types.lsp.CompletionItemKind.Snippet),
-					cmp.config.compare.recently_used,
+					-- cmp.config.compare.recently_used,
 					cmp.config.compare.offset,
 					cmp.config.compare.score,
 					cmp.config.compare.exact,

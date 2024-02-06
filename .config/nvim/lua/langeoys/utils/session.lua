@@ -19,13 +19,13 @@ M.store_last_worktree_branch = function(target_cwd)
 end
 
 M.load_last_session = function()
-	local worktree_state = require("langeoys.utils.state").get_state(M.WORKTREE_STATE)
-	local last_work_tree_branch = worktree_state and worktree_state[vim.loop.cwd()]
-
-    if last_work_tree_branch then
-        require("git-worktree").switch_worktree(last_work_tree_branch)
-        return
-    end
+	-- local worktree_state = require("langeoys.utils.state").get_state(M.WORKTREE_STATE)
+	-- local last_work_tree_branch = worktree_state and worktree_state[vim.loop.cwd()]
+	--
+ --    if last_work_tree_branch then
+ --        require("git-worktree").switch_worktree(last_work_tree_branch)
+ --        return
+ --    end
 
 	require("session_manager").load_current_dir_session()
 end
