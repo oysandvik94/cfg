@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-winclass="$(xdotool search --class scpad)";
+winclass="$(xdotool search --name scpad)";
 if [ -z "$winclass" ]; then
-    alacritty --class scpad &
+    xfce4-terminal -T scpad &
 else
     if [ ! -f /tmp/scpad ]; then
         touch /tmp/scpad && xdo hide "$winclass"
