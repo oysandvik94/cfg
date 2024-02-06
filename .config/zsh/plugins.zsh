@@ -14,8 +14,11 @@ plug() {
 	source "$PLUGINDIR/$PLUGIN_NAME/$PLUGIN_NAME.plugin.zsh"
 }
 
+plug "Aloxaf/fzf-tab"
 plug "zsh-users/zsh-syntax-highlighting"
 plug "zsh-users/zsh-autosuggestions"
 plug "zsh-users/zsh-completions"
+export NVM_LAZY_LOAD=true
+plug "lukechilds/zsh-nvm"
 
 

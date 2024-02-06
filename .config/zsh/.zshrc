@@ -1,5 +1,4 @@
 #!/usr/bin/env zsh
-
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.config/zsh/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -15,11 +14,16 @@ source $ZDOTDIR/vim.zsh
 
 path+=("$HOME/.local/bin/scripts")
 path+=("$HOME/.local/share/nvim/mason/bin")
+path+=("/usr/local/go/bin")
+path+=("$HOME/go/bin")
+
 
 # Completion
 autoload -U compinit; compinit
 _comp_options+=(globdots) # With hidden files
-source $ZDOTDIR/completion.zsh
+
+# TODO: remove if not needed
+# source $ZDOTDIR/completion.zsh
 
 source $ZDOTDIR/ssh-agent.zsh
 
@@ -31,6 +35,13 @@ setopt PUSHD_SILENT         # Do not print the directory stack after pushd or po
 
 alias d='dirs -v'
 for index ({1..9}) alias "$index"="cd +${index}"; unset index;
+
+export FZF_DEFAULT_OPTS="
+--color=fg:#908caa,bg:#191724,hl:#ebbcba
+--color=fg+:#e0def4,bg+:#26233a,hl+:#ebbcba
+--color=border:#403d52,header:#31748f,gutter:#191724
+--color=spinner:#f6c177,info:#9ccfd8,separator:#403d52
+--color=pointer:#c4a7e7,marker:#eb6f92,prompt:#908caa"
 
 dotc() {
     if [ $# -eq 3 ]; then
@@ -57,6 +68,15 @@ dota() {
     dotfile=$(dotfiles diff --name-only | sort | fzf -m) && dotfiles add $dotfile
     popd >/dev/null 
 }
+
+autoautorandr() {
+    autorandr --change
+    $HOME/.config/polybar/launch.sh &
+}
+
+# export NVM_LAZY=1
+# export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 SDKMAN_DIR="/home/oysandvik/.sdkman" 
