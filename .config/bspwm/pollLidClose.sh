@@ -12,7 +12,7 @@ while sleep 2; do
         # State has changed
         prev_state="$state"
 
-        i3-msg restart
+        autorandr -c
     fi
 done
 
