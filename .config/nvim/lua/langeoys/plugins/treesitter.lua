@@ -46,8 +46,6 @@ return {
                         ["if"] = "@function.inner",
                         ["ac"] = "@class.outer",
                         ["ic"] = { query = "@class.inner", desc = "Select inner part of a class region" },
-                        ["ii"] = "@conditional.inner",
-                        ["ai"] = "@conditional.outer",
                         -- You can also use captures from other query groups like `locals.scm`
                         ["as"] = { query = "@scope", query_group = "locals", desc = "Select language scope" },
                     },

@@ -45,7 +45,6 @@ return {
 	"nvim-lualine/lualine.nvim",
 	dependencies = {
 		{ "nvim-tree/nvim-web-devicons", lazy = true },
-		{ "Shatur/neovim-ayu" },
 	},
 	config = function()
 		require("lualine").setup({
@@ -79,7 +78,6 @@ return {
 				lualine_z = { "branch", "diff" }, -- git
 			},
 			options = {
-				theme = "ayu_mirage",
 				component_separators = { left = "", right = "" },
 				section_separators = { left = "", right = "" },
 				globalstatus = false,

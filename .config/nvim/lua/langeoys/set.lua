@@ -5,6 +5,7 @@ vim.opt.cursorline = true
 vim.opt.cursorlineopt = "number"
 
 -- Indenting
+vim.opt.colorcolumn = "80"
 vim.opt.autoindent = true
 vim.opt.smartindent = true
 vim.opt.tabstop = 4
